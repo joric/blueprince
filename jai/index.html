@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+<meta content="" name="description" />
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<script src="MoraJaiBoxesSolver.js"></script>
+<title>Mora Jai Boxes Solver - Joric's Blue Prince</title>
+<style>
+
+body,html {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: white;
+  color: black;
+}
+
+.box {
+  height: 50%;
+  aspect-ratio: 1/1;
+  background: lightgrey;
+}
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  aspect-ratio: 1/1;
+  background: lightgrey;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15%;
+
+  container-type: inline-size;
+
+}
+
+.tiles .button {
+  width: 33.33333%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px black;
+
+  font-size: 12cqw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.corners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.corners .button {
+  width: 15%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px black;
+}
+
+.palette {
+  display: flex;
+}
+
+.color {
+  width: 15%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.button:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.selected {
+  box-shadow: inset 0 0 0 2px black;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="box">
+
+    <div class="corners">
+      <div id="b10" class="button tile"></div>
+      <div id="b11" class="button tile"></div>
+    </div>
+
+    <div class="tiles">
+      <div id="b1" class="button tile">1</div>
+      <div id="b2" class="button tile">2</div>
+      <div id="b3" class="button tile">3</div>
+      <div id="b4" class="button tile">4</div>
+      <div id="b5" class="button tile">5</div>
+      <div id="b6" class="button tile">6</div>
+      <div id="b7" class="button tile">7</div>
+      <div id="b8" class="button tile">8</div>
+      <div id="b9" class="button tile">9</div>
+    </div>
+
+    <div class="corners">
+      <div id="b12" class="button tile"></div>
+      <div id="b13" class="button tile"></div>
+    </div>
+
+    <br/>
+    <div class="palette"></div>
+
+    <br/>
+    <div id="result"></div>
+
+  </div>
+</div>
+
+</body>
+<script>
+
+function getSolution(node) {
+  const moves = [];
+  while (node) {
+    moves.unshift(node);
+    node = node.parent;
+  }
+
+  const result = [];
+  for (const move of moves) {
+
+    if (move.move !== null) {
+      result.push(move.move + 1);
+    } else {
+      //result.push(-1);
+    }
+  }
+
+  return result;
+}
+
+let palette = {
+  g : 'grey',
+  e : 'green',
+  o : 'orange',
+  b : '#444',//'black',
+  r : 'red',
+  w : '#eee',//'white',
+  p : 'purple',
+  y : 'yellow',
+  i : 'pink',
+  u : 'blue'
+};
+
+let selectedColor = 'g';
+let defaultColor = 'g';
+
+//let data = {};
+//let data = {1:'r', 2:'y', 11:'p'};
+
+let data = ['u', 'b','b','b','g','b','g','y','g','y','b','b','b','b'];
+
+
+function updateSolution() {
+  // Board configuration
+  const start = ["b", "b", "b",
+                "g", "b", "g",
+                "y", "g", "y"];
+
+  const expected = ["b", "b",
+                    "b", "b"];
+
+  for (let i=0; i<9; i++) {
+    start[i] = data[i+1] || defaultColor;
+  }
+
+  for (let i=0; i<4; i++) {
+    expected[i] = data[i+10] || defaultColor;
+  }
+
+  //console.log(start, expected);
+
+  const result = treeSolve(start, expected);
+  let span = document.querySelector('#result');
+  if (result) {
+    let solution = getSolution(result);
+    //console.log(solution);
+    span.textContent = 'Solution: ' + solution;
+  } else {
+    span.textContent = 'Solution not found';
+  }
+}
+
+function setColor(id, color, button) {
+  data[id] = color;
+  let colorName = palette[color];
+  button.style.backgroundColor = colorName;
+}
+
+function updateColors() {
+  document.querySelectorAll('.tile').forEach(button => {
+    let id = parseInt(button.id.replace('b', ''));
+    let color = data[id] || defaultColor;
+    setColor(id, color, button);
+  });
+}
+
+function selectColor(color) {
+  selectedColor = color;
+  document.querySelectorAll('.color').forEach(div => {
+      let id = div.id.replace('color_', '');
+      if (id==color) {
+        div.classList.add('selected');
+      } else {
+        div.classList.remove('selected');
+      }
+  });
+}
+
+window.onload = function(event) {
+
+  let container = document.querySelector('.palette');
+  for (const color of Object.keys(palette)) {
+    let div = document.createElement('div');
+    div.className = 'button';
+    div.classList.add('color');
+    div.id = 'color_' + color;
+    div.style.backgroundColor = palette[color];
+    container.append(div);
+  }
+
+  document.querySelectorAll('.color').forEach(div => {
+    div.addEventListener('click', function() {
+      let color = div.id.replace('color_', '');
+      selectColor(color);
+    })
+  })
+
+  document.querySelectorAll('.tile').forEach(div => {
+    div.addEventListener('click', function() {
+      let id = parseInt(div.id.replace('b', ''));
+      setColor(id, selectedColor, div);
+      updateColors();
+      updateSolution();
+    });
+  })
+
+  selectColor(selectedColor);
+  updateColors();
+  updateSolution();
+}
+</script>
+</html>
+
+
