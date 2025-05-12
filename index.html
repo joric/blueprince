@@ -28,9 +28,13 @@ body,html {
   color: black;
 }
 
-.box {
-  height: 50%;
+.wrapper {
+  text-align: center;
+  width: min(60vmin, 60%);
   aspect-ratio: 1/1;
+}
+
+.box {
   background: lightgrey;
 }
 
@@ -43,9 +47,7 @@ body,html {
   justify-content: center;
   align-items: center;
   margin-left: 15%;
-
   container-type: inline-size;
-
 }
 
 .tiles .button {
@@ -76,7 +78,9 @@ body,html {
 
 .palette {
   display: flex;
+  padding-top: 5%;
 }
+
 
 .color {
   width: 15%;
@@ -99,6 +103,9 @@ body,html {
 <body>
 
 <div class="container">
+<div class="wrapper">
+
+  <h1>Mora Jai Box Solver</h1>
 
   <div class="box">
 
@@ -124,13 +131,13 @@ body,html {
       <div id="b13" class="button tile"></div>
     </div>
 
-    <br/>
+  </div>
+
     <div class="palette"></div>
 
-    <br/>
-    <div id="result"></div>
+    <h2 id="result"></h2>
 
-  </div>
+</div>
 </div>
 
 </body>
