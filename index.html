@@ -1,10 +1,275 @@
+<!DOCTYPE html>
 <html>
+<head>
+<meta charset="utf-8" />
+<title>Mora Jai Box Solver - Joric's Blue Prince</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:image" content="https://joric.github.io/blueprince/images/thumbnail.jpg" />
+<meta property="og:site_name" content="Joric" />
+<meta property="og:type" content="object" />
+<meta property="og:title" content="Joric's Blue Prince" />
+<meta property="og:description" content="Mora Jai Box Solver" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--%3E%3Cpath d='M192 104.8c0-9.2-5.8-17.3-13.2-22.8C167.2 73.3 160 61.3 160 48c0-26.5 28.7-48 64-48s64 21.5 64 48c0 13.3-7.2 25.3-18.8 34c-7.4 5.5-13.2 13.6-13.2 22.8c0 12.8 10.4 23.2 23.2 23.2l56.8 0c26.5 0 48 21.5 48 48l0 56.8c0 12.8 10.4 23.2 23.2 23.2c9.2 0 17.3-5.8 22.8-13.2c8.7-11.6 20.7-18.8 34-18.8c26.5 0 48 28.7 48 64s-21.5 64-48 64c-13.3 0-25.3-7.2-34-18.8c-5.5-7.4-13.6-13.2-22.8-13.2c-12.8 0-23.2 10.4-23.2 23.2L384 464c0 26.5-21.5 48-48 48l-56.8 0c-12.8 0-23.2-10.4-23.2-23.2c0-9.2 5.8-17.3 13.2-22.8c11.6-8.7 18.8-20.7 18.8-34c0-26.5-28.7-48-64-48s-64 21.5-64 48c0 13.3 7.2 25.3 18.8 34c7.4 5.5 13.2 13.6 13.2 22.8c0 12.8-10.4 23.2-23.2 23.2L48 512c-26.5 0-48-21.5-48-48L0 343.2C0 330.4 10.4 320 23.2 320c9.2 0 17.3 5.8 22.8 13.2C54.7 344.8 66.7 352 80 352c26.5 0 48-28.7 48-64s-21.5-64-48-64c-13.3 0-25.3 7.2-34 18.8C40.5 250.2 32.4 256 23.2 256C10.4 256 0 245.6 0 232.8L0 176c0-26.5 21.5-48 48-48l120.8 0c12.8 0 23.2-10.4 23.2-23.2z'/%3E%3C/svg%3E" />
+<script src="MoraJaiBoxSolver.js"></script>
+<style>
 
-<ul>
-<li><a href="jai/">Mora Jai Box Solver</a></li>
-</ul>
+body,html {
+  padding: 0;
+  margin: 0;
+}
 
-<a href="https://github.com/joric/blueprince" target="_blank" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: white;
+  color: black;
+}
+
+.box {
+  height: 50%;
+  aspect-ratio: 1/1;
+  background: lightgrey;
+}
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  aspect-ratio: 1/1;
+  background: lightgrey;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15%;
+
+  container-type: inline-size;
+
+}
+
+.tiles .button {
+  width: 33.33333%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px black;
+
+  font-size: 12cqw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.corners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.corners .button {
+  width: 15%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px black;
+}
+
+.palette {
+  display: flex;
+}
+
+.color {
+  width: 15%;
+  aspect-ratio: 1/1;
+  background: grey;
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.button:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.selected {
+  box-shadow: inset 0 0 0 2px black;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="box">
+
+    <div class="corners">
+      <div id="b10" class="button tile"></div>
+      <div id="b11" class="button tile"></div>
+    </div>
+
+    <div class="tiles">
+      <div id="b1" class="button tile">1</div>
+      <div id="b2" class="button tile">2</div>
+      <div id="b3" class="button tile">3</div>
+      <div id="b4" class="button tile">4</div>
+      <div id="b5" class="button tile">5</div>
+      <div id="b6" class="button tile">6</div>
+      <div id="b7" class="button tile">7</div>
+      <div id="b8" class="button tile">8</div>
+      <div id="b9" class="button tile">9</div>
+    </div>
+
+    <div class="corners">
+      <div id="b12" class="button tile"></div>
+      <div id="b13" class="button tile"></div>
+    </div>
+
+    <br/>
+    <div class="palette"></div>
+
+    <br/>
+    <div id="result"></div>
+
+  </div>
+</div>
+
+</body>
+<script>
+
+function getSolution(node) {
+  const moves = [];
+  while (node) {
+    moves.unshift(node);
+    node = node.parent;
+  }
+
+  const result = [];
+  for (const move of moves) {
+
+    if (move.move !== null) {
+      result.push(move.move + 1);
+    } else {
+      //result.push(-1);
+    }
+  }
+
+  return result;
+}
+
+let palette = {
+  g : 'grey',
+  e : 'green',
+  o : 'orange',
+  b : '#444',//'black',
+  r : 'red',
+  w : '#eee',//'white',
+  p : 'purple',
+  y : 'yellow',
+  i : 'pink',
+  u : 'blue'
+};
+
+let selectedColor = 'g';
+let defaultColor = 'g';
+
+//let data = {};
+//let data = {1:'r', 2:'y', 11:'p'};
+
+let data = ['u', 'b','b','b','g','b','g','y','g','y','b','b','b','b'];
+
+
+function updateSolution() {
+  // Board configuration
+  const start = ["b", "b", "b",
+                "g", "b", "g",
+                "y", "g", "y"];
+
+  const expected = ["b", "b",
+                    "b", "b"];
+
+  for (let i=0; i<9; i++) {
+    start[i] = data[i+1] || defaultColor;
+  }
+
+  for (let i=0; i<4; i++) {
+    expected[i] = data[i+10] || defaultColor;
+  }
+
+  //console.log(start, expected);
+
+  const result = treeSolve(start, expected);
+  let span = document.querySelector('#result');
+  if (result) {
+    let solution = getSolution(result);
+    //console.log(solution);
+    span.textContent = 'Solution: ' + solution;
+  } else {
+    span.textContent = 'Solution not found';
+  }
+}
+
+function setColor(id, color, button) {
+  data[id] = color;
+  let colorName = palette[color];
+  button.style.backgroundColor = colorName;
+}
+
+function updateColors() {
+  document.querySelectorAll('.tile').forEach(button => {
+    let id = parseInt(button.id.replace('b', ''));
+    let color = data[id] || defaultColor;
+    setColor(id, color, button);
+  });
+}
+
+function selectColor(color) {
+  selectedColor = color;
+  document.querySelectorAll('.color').forEach(div => {
+      let id = div.id.replace('color_', '');
+      if (id==color) {
+        div.classList.add('selected');
+      } else {
+        div.classList.remove('selected');
+      }
+  });
+}
+
+window.onload = function(event) {
+
+  let container = document.querySelector('.palette');
+  for (const color of Object.keys(palette)) {
+    let div = document.createElement('div');
+    div.className = 'button';
+    div.classList.add('color');
+    div.id = 'color_' + color;
+    div.style.backgroundColor = palette[color];
+    container.append(div);
+  }
+
+  document.querySelectorAll('.color').forEach(div => {
+    div.addEventListener('click', function() {
+      let color = div.id.replace('color_', '');
+      selectColor(color);
+    })
+  })
+
+  document.querySelectorAll('.tile').forEach(div => {
+    div.addEventListener('click', function() {
+      let id = parseInt(div.id.replace('b', ''));
+      setColor(id, selectedColor, div);
+      updateColors();
+      updateSolution();
+    });
+  })
+
+  selectColor(selectedColor);
+  updateColors();
+  updateSolution();
+}
+</script>
+
+<a href="https://github.com/joric/blueprince/" target="_blank" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
 </html>
+
 
