@@ -1,5 +1,5 @@
 /*
-  Blue Prince Mora Jai boxes solver
+  Blue Prince Mora Jai Box solver
   Originally from https://www.reddit.com/r/BluePrince/comments/1kefpbv/i_made_a_puzzle_box_solver/
   Ported to JS by Joric, 2025 https://github.com/joric/blueprince
 */
