@@ -2,7 +2,7 @@
 
 Various solvers for the [Blue Prince](https://store.steampowered.com/app/1569580/Blue_Prince/) game.
 
-* Live demo: https://joric.github.io/blueprince
+* Mora Jai Box Solver: https://joric.github.io/blueprince/jai/
 
 ## Documentation
 
