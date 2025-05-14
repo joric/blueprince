@@ -266,6 +266,7 @@ function selectColor(color) {
 }
 
 function updateSolution() {
+
   const start = ['black', 'black', 'black',
                 'grey', 'black', 'grey',
                 'yellow', 'grey', 'yellow'];
@@ -287,9 +288,12 @@ function updateSolution() {
 
 }
 
+let timer = null;
+
 function setColor(div) {
   div.className = selectedColor;
-  updateSolution();
+  clearTimeout(timer);
+  timer = setTimeout(updateSolution, 250);
 }
 
 window.onload = function(event) {
