@@ -308,8 +308,7 @@ function setColor(div, color) {
   if (div.color == color) {
     [div.color, div.lastColor] = [div.lastColor, div.color];
   } else {
-    div.lastColor = div.color;
-    div.color = color;
+    [div.lastColor, div.color] = [div.color, color];
   }
 
   div.className = div.color;
