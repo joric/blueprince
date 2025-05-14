@@ -290,8 +290,19 @@ function updateSolution() {
 
 let timer = null;
 
-function setColor(div) {
-  div.className = selectedColor;
+function setColor(div, color) {
+  if (!div.lastColor) div.lastColor = div.className;
+  if (!div.color) div.color = div.className;
+
+  if (div.color == color) {
+    [div.color, div.lastColor] = [div.lastColor, div.color];
+  } else {
+    div.lastColor = div.color;
+    div.color = color;
+  }
+
+  div.className = div.color;
+
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 250);
 }
@@ -300,8 +311,8 @@ window.onload = function(event) {
   selectColor(selectedColor);
   updateSolution();
   document.querySelectorAll('.palette button').forEach((div,i) => {div.onclick = e=>{ selectColor(div.className); } });
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=>{ setColor(div); } });
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=>{ setColor(div); } });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=>{ setColor(div, selectedColor); } });
+  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=>{ setColor(div, selectedColor); } });
 }
 
 </script>
