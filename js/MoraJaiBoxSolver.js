@@ -1,8 +1,18 @@
-/*
-  Blue Prince Mora Jai Box solver
-  Originally from https://www.reddit.com/r/BluePrince/comments/1kefpbv/i_made_a_puzzle_box_solver/
-  Ported to JS by Joric, 2025 https://github.com/joric/blueprince
-*/
+// Blue Prince Mora Jai Box solver
+// Originally from https://www.reddit.com/r/BluePrince/comments/1kefpbv/i_made_a_puzzle_box_solver/
+// Ported to JS by Joric, 2025 https://github.com/joric/blueprince
+
+// The following colors are supported :
+// g : grey
+// e : green
+// o : orange
+// b : black
+// r : red
+// w : white
+// p : purple
+// y : yellow
+// i : pink
+// u : blue
 
 const crossAroundIndexes = [
   [1, 3], [0, 2, 4], [1, 5],
@@ -130,68 +140,22 @@ function treeSolve(board, expected) {
   return null;
 }
 
-const colors = {
-  g: '\x1b[100m',
-  e: '\x1b[42m',
-  o: '\x1b[43m',
-  b: '\x1b[40m',
-  r: '\x1b[41m',
-  w: '\x1b[107m',
-  p: '\x1b[45m',
-  y: '\x1b[103m',
-  i: '\x1b[101m',
-  u: '\x1b[104m'
-};
-
-const moveNames = [
-  "top left", "top center", "top right",
-  "middle left", "center", "middle right",
-  "bottom left", "bottom center", "bottom right"
-];
-
-
-function printBoardAscii(board) {
-  console.log("╔═╦═╦═╗");
-  console.log(`║${board[0]}║${board[1]}║${board[2]}║`);
-  console.log("╠═╬═╬═╣");
-  console.log(`║${board[3]}║${board[4]}║${board[5]}║`);
-  console.log("╠═╬═╬═╣");
-  console.log(`║${board[6]}║${board[7]}║${board[8]}║`);
-  console.log("╚═╩═╩═╝");
-}
-
-function printSolution(node) {
+function getSolution(node) {
   const moves = [];
   while (node) {
     moves.unshift(node);
     node = node.parent;
   }
-
+  solution = [];
   for (const move of moves) {
     if (move.move !== null) {
-      console.log(`click index ${move.move}: ${moveNames[move.move]}`);
-    } else {
-      console.log("starting position");
+      solution.push(move.move+1);
     }
-    printBoardAscii(move.board);
   }
+  return solution;
 }
 
 if (typeof require !== 'undefined' && require.main === module) {
-
-  // The following colors are supported :
-
-  // g : grey
-  // e : green
-  // o : orange
-  // b : black
-  // r : red
-  // w : white
-  // p : purple
-  // y : yellow
-  // i : pink
-  // u : blue
-
   // Board configuration
   const start = ["b", "b", "b",
                 "g", "b", "g",
@@ -202,8 +166,7 @@ if (typeof require !== 'undefined' && require.main === module) {
 
   const result = treeSolve(start, expected);
   if (result) {
-    console.log("solution found");
-    printSolution(result);
+    console.log("solution found", getSolution(result));
   } else {
     console.log("no solution found");
   }

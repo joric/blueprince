@@ -143,26 +143,6 @@ body,html {
 </body>
 <script>
 
-function getSolution(node) {
-  const moves = [];
-  while (node) {
-    moves.unshift(node);
-    node = node.parent;
-  }
-
-  const result = [];
-  for (const move of moves) {
-
-    if (move.move !== null) {
-      result.push(move.move + 1);
-    } else {
-      //result.push(-1);
-    }
-  }
-
-  return result;
-}
-
 let palette = {
   g : 'grey',
   b : '#444',  //'black',
@@ -186,7 +166,6 @@ let data = ['u', 'b','b','b','g','b','g','y','g','y','b','b','b','b'];
 
 
 function updateSolution() {
-  // Board configuration
   const start = ["b", "b", "b",
                 "g", "b", "g",
                 "y", "g", "y"];
@@ -202,13 +181,10 @@ function updateSolution() {
     expected[i] = data[i+10] || defaultColor;
   }
 
-  //console.log(start, expected);
-
   const result = treeSolve(start, expected);
   let span = document.querySelector('#result');
   if (result) {
     let solution = getSolution(result);
-    //console.log(solution);
     span.textContent = 'Solution: ' + solution;
   } else {
     span.textContent = 'Solution not found';
