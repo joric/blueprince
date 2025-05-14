@@ -240,19 +240,15 @@ function treeSolve(board, expected) {
   return null;
 }
 
-function getSolution(node) {
+function getMoves(node) {
   const moves = [];
   while (node) {
-    moves.unshift(node);
+    if (node.move !== null) {
+      moves.unshift(node.move);
+    }
     node = node.parent;
   }
-  solution = [];
-  for (const move of moves) {
-    if (move.move !== null) {
-      solution.push(move.move);
-    }
-  }
-  return solution;
+  return moves;
 }
 
 let defaultColor = 'grey';
@@ -292,8 +288,8 @@ function updateSolution() {
   const result = treeSolve(start, expected);
   let span = document.querySelector('#result');
   if (result) {
-    let solution = getSolution(result);
-    span.textContent = 'Solution: ' + solution.map(i => [7,8,9,4,5,6,1,2,3][i]);
+    let moves = getMoves(result);
+    span.textContent = 'Solution: ' + moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
   } else {
     span.textContent = 'Solution not found';
   }
