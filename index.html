@@ -223,7 +223,6 @@ function treeSolve(board, expected) {
   for (let depth = 0; depth < 30; depth++) {
     const currentLevel = levels[depth];
     const nextLevel = [];
-    //console.log(`move ${depth}, ${currentLevel.length} possibilities`);
     for (const node of currentLevel) {
       for (let i = 0; i < 9; i++) {
         const newBoard = copyBoard(node.board);
@@ -307,13 +306,17 @@ function getState() {
 
 function updateSolution() {
   let div = document.querySelector('#result');
-  let state = getState  ();
-  const result = treeSolve(state.start, state.expected);
-  if (result) {
-    let moves = getMoves(result);
-    div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
+  let state = getState();
+  if (isSolution(state.start, state.expected)) {
+    div.textContent = 'Solved';
   } else {
-    div.textContent = 'Solution not found';
+    const result = treeSolve(state.start, state.expected);
+    if (result) {
+      let moves = getMoves(result);
+      div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
+    } else {
+      div.textContent ='Solution not found';
+    }
   }
 }
 
@@ -326,8 +329,6 @@ function setColor(div, color) {
     [div.lastColor, div.color] = [div.color, color];
   }
   div.className = div.color;
-  clearTimeout(timer);
-  timer = setTimeout(updateSolution, 25);
 }
 
 function toggleMode(e) {
@@ -353,6 +354,9 @@ function tileClick(e, i) {
     clickBoard(state.start, i);
     updateColors(state.start, state.expected);
   }
+
+  clearTimeout(timer);
+  timer = setTimeout(updateSolution, 25);
 }
 
 function updateColors(start, expected) {
@@ -415,7 +419,7 @@ window.onload = function(event) {
     </div>
 
     <div class="corner"><button></button></div>
-    <div class="spacer"><h2 id="result">Solution not found</h2></div>
+    <div class="spacer"><h2 id="result"></h2></div>
     <div class="corner"><button></button></div>
 
   </div>
