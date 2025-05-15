@@ -301,12 +301,12 @@ let savedState = null;
 let timer = null;
 let useNumpad = true;
 
-function remapMove(i, useNumpad) {
+function remapIndex(i, useNumpad) {
   return useNumpad ? [7,8,9,4,5,6,1,2,3][i] : i+1;
 }
 
 function remapMoves(moves, useNumpad) {
-  return moves.map( i => { return remapMove(i, useNumpad); });
+  return moves.map( i => { return remapIndex(i, useNumpad); });
 }
 
 function selectColor(color) {
@@ -386,7 +386,7 @@ function tileClick(div, i) {
 function updateColors(start, expected) {
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.className = start[i]; });
   document.querySelectorAll('.corner button').forEach((div,i) => { div.className = expected[i]; });
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.textContent = remapMove(i, useNumpad); });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.textContent = remapIndex(i, useNumpad); });
 }
 
 window.onload = function(event) {
