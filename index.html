@@ -284,7 +284,8 @@ let presets = {
   },
 }
 
-let defaultPreset = 'grey';//['orinda_aries','trading_post'][Math.floor(Math.random()*2)];
+let pool = Object.keys(presets);
+let defaultPreset = pool[Math.floor(Math.random()*pool.length)];
 let defaultColor = 'grey';
 let selectedColor = 'grey';
 let editMode = true;
