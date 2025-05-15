@@ -284,10 +284,7 @@ let presets = {
   },
 }
 
-let defaultPreset = 'grey';
-//defaultPreset = 'orinda_aries';
-defaultPreset = 'trading_post';
-
+let defaultPreset = ['orinda_aries','trading_post'][Math.floor(Math.random()*2)];
 let defaultColor = 'grey';
 let selectedColor = 'grey';
 let editMode = true;
