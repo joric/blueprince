@@ -331,18 +331,23 @@ function setColor(div, color) {
   div.className = div.color;
 }
 
+function setEditMode(mode) {
+  editMode = mode;
+  document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Editor' : 'Mora Jai Box Player';
+}
+
 function toggleMode(e) {
   if (editMode) {
     savedState = getState();
   } else {
     updateColors(savedState.start, savedState.expected);
   }
-
-  editMode = !editMode;
-  e.target.textContent = editMode ? 'Mora Jai Box Solver' : 'Mora Jai Box Player';
+  setEditMode(!editMode);
+  updateSolution();
 }
 
 function paletteClick(e) {
+  setEditMode(true);
   selectColor(e.target.className);
 }
 
@@ -365,6 +370,7 @@ function updateColors(start, expected) {
 }
 
 window.onload = function(event) {
+  setEditMode(editMode);
   selectColor(selectedColor);
   updateColors(presets[defaultPreset].start, presets[defaultPreset].expected);
   updateSolution();
@@ -383,7 +389,7 @@ window.onload = function(event) {
   <div class="box">
 
     <div class="corner"><button></button></div>
-    <div class="spacer"><h1 id="title" title="Click to toggle modes.">Mora Jai Box Solver</h1></div>
+    <div class="spacer"><h1 id="title" title="Click to toggle modes."></h1></div>
     <div class="corner"><button></button></div>
 
     <div class="spacer">
