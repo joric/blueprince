@@ -406,7 +406,7 @@ window.onload = function(event) {
     }
     !editMode && document.querySelectorAll('.tiles button').forEach((div,i) => {
       if (div.textContent==e.key) {
-        console.log(div);
+        tileClick(div, i);
       }
     });
   });
