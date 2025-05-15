@@ -315,7 +315,8 @@ function updateSolution() {
     const result = treeSolve(state.start, state.expected);
     if (result) {
       let moves = getMoves(result);
-      div.textContent = moves;// moves.map(i => [7,8,9,4,5,6,1,2,3][i]); // let's not do that numpad crap
+      // div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]); // numpad crap (also needs editing buttons in html)
+      div.textContent = moves;
     } else {
       div.textContent ='Solution not found';
     }
