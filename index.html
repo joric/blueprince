@@ -340,11 +340,11 @@ function setEditMode(mode) {
   }
   editMode = mode;
   document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Editor' : 'Mora Jai Box Player';
+  updateSolution();
 }
 
 function toggleMode(e) {
   setEditMode(!editMode);
-  updateSolution();
 }
 
 function paletteClick(e) {
