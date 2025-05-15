@@ -218,8 +218,12 @@ function copyBoard(board) {
 function remapSolverIndex(j) {
   //let i = useNumpad ? [6,7,8,3,4,5,0,1,2][j] : j; // scan as numpad? solver still doesn't match https://kkawabat.github.io/MoraJaiBox/
   //let i = useNumpad ? [8,7,6,5,4,3,2,1,0][j] : j; // scan backwards? still doesn't match 742544446 for trading post
+  //let i = useNumpad ? [0,3,6,1,4,7,2,5,8][j] : j;
+
+  let i = j;
   //console.log(j+1,'=>', i+1);
-  return j;
+
+  return i;
 }
 
 function treeSolve(board, expected) {
@@ -294,7 +298,7 @@ let presets = {
 
 let pool = Object.keys(presets);
 let defaultPreset = 'grey';//pool[Math.floor(Math.random()*pool.length)];
-//defaultPreset = 'trading_post';
+defaultPreset = 'trading_post';
 let defaultColor = 'grey';
 let selectedColor = 'grey';
 let editMode = true;
