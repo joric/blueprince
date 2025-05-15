@@ -43,6 +43,7 @@ body {
 
 .box h1 {
   font-size: min(5cqw, 5cqh);
+  cursor: pointer;
 }
 
 .box h2 {
@@ -79,6 +80,7 @@ body {
 }
 
 .box button {
+  cursor: pointer;
   position: relative;
   aspect-ratio: 1;
   z-index: 0;
@@ -254,8 +256,43 @@ function getMoves(node) {
 
 //////////////////////////////////////////////////////////////////////////////
 
+let presets = {
+  'grey' : {
+    start: ['grey', 'grey', 'grey',
+            'grey', 'grey', 'grey',
+            'grey', 'grey', 'grey'],
+
+    expected: ['grey', 'grey',
+               'grey', 'grey'],
+  },
+
+  'orinda_aries': {
+    start: ['black',  'black', 'black',
+            'grey',   'black', 'grey',
+            'yellow', 'grey',  'yellow'],
+
+    expected: ['black', 'black',
+               'black', 'black'],
+  },
+  'trading_post' : {
+    start: ['pink', 'grey',   'grey',
+            'grey', 'yellow', 'yellow',
+            'grey', 'yellow', 'yellow'],
+
+    expected: ['yellow', 'yellow',
+               'yellow', 'yellow'],
+  },
+}
+
+let defaultPreset = 'grey';
+//defaultPreset = 'orinda_aries';
+defaultPreset = 'trading_post';
+
 let defaultColor = 'grey';
 let selectedColor = 'grey';
+let editMode = true;
+let savedState = null;
+let timer = null;
 
 function selectColor(color) {
   selectedColor = color;
@@ -264,65 +301,76 @@ function selectColor(color) {
   });
 }
 
-function updateSolution() {
-
-/*
-  // Sanctum 1 (Orinda Aries)
-  const start = ['black', 'black', 'black',
-                'grey', 'black', 'grey',
-                'yellow', 'grey', 'yellow'];
-
-  const expected = ['black', 'black',
-                    'black', 'black'];
-*/
-
-  // Trading post
-  const start = ['pink', 'grey', 'grey',
-                'grey', 'yellow', 'yellow',
-                'grey', 'yellow', 'yellow'];
-
-  const expected = ['yellow', 'yellow',
-                    'yellow', 'yellow'];
-
-
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.className = start[i] = div.className || start[i]; });
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.className = expected[i] = div.className || expected[i]; });
-
-  const result = treeSolve(start, expected);
-  let span = document.querySelector('#result');
-  if (result) {
-    let moves = getMoves(result);
-    span.textContent = 'Solution: ' + moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
-  } else {
-    span.textContent = 'Solution not found';
-  }
-
+function getState() {
+  let start = [], expected = [];
+  document.querySelectorAll('.tiles button').forEach((div,i) => { start[i] = div.className; });
+  document.querySelectorAll('.corner button').forEach((div,i) => { expected[i] = div.className; });
+  return {start:start, expected:expected};
 }
 
-let timer = null;
+function updateSolution() {
+  let div = document.querySelector('#result');
+  let state = getState  ();
+  const result = treeSolve(state.start, state.expected);
+  if (result) {
+    let moves = getMoves(result);
+    div.textContent = 'Solution: ' + moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
+  } else {
+    div.textContent = 'Solution not found';
+  }
+}
 
 function setColor(div, color) {
   if (!div.lastColor) div.lastColor = div.className;
   if (!div.color) div.color = div.className;
-
   if (div.color == color) {
     [div.color, div.lastColor] = [div.lastColor, div.color];
   } else {
     [div.lastColor, div.color] = [div.color, color];
   }
-
   div.className = div.color;
-
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 25);
 }
 
+function toggleMode(e) {
+  if (editMode) {
+    savedState = getState();
+  } else {
+    updateColors(savedState.start, savedState.expected);
+  }
+
+  editMode = !editMode;
+  e.target.textContent = editMode ? 'Mora Jai Box Solver' : 'Mora Jai Box Tester';
+}
+
+function paletteClick(e) {
+  selectColor(e.target.className);
+}
+
+function tileClick(e, i) {
+  if (editMode) {
+    setColor(e.target, selectedColor);
+  } else {
+    let state = getState();
+    clickBoard(state.start, i);
+    updateColors(state.start, state.expected);
+  }
+}
+
+function updateColors(start, expected) {
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.className = start[i]; });
+  document.querySelectorAll('.corner button').forEach((div,i) => { div.className = expected[i]; });
+}
+
 window.onload = function(event) {
   selectColor(selectedColor);
+  updateColors(presets[defaultPreset].start, presets[defaultPreset].expected);
   updateSolution();
-  document.querySelectorAll('.palette button').forEach((div,i) => {div.onclick = e=>{ selectColor(div.className); } });
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=>{ setColor(div, selectedColor); } });
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=>{ setColor(div, selectedColor); } });
+  document.querySelectorAll('.palette button').forEach((div,i) => div.onclick = paletteClick );
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
+  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
+  document.querySelector('.box h1').onclick = toggleMode;
 }
 
 </script>
@@ -334,7 +382,7 @@ window.onload = function(event) {
   <div class="box">
 
     <div class="corner"><button></button></div>
-    <div class="spacer"><h1>Mora Jai Box Solver</h1></div>
+    <div class="spacer"><h1 id="title" title="Click to toggle modes.">Mora Jai Box Solver</h1></div>
     <div class="corner"><button></button></div>
 
     <div class="spacer">
