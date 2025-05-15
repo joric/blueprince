@@ -333,16 +333,16 @@ function setColor(div, color) {
 }
 
 function setEditMode(mode) {
-  editMode = mode;
-  document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Editor' : 'Mora Jai Box Player';
-}
-
-function toggleMode(e) {
   if (editMode) {
     savedState = getState();
   } else {
     updateColors(savedState.start, savedState.expected);
   }
+  editMode = mode;
+  document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Editor' : 'Mora Jai Box Player';
+}
+
+function toggleMode(e) {
   setEditMode(!editMode);
   updateSolution();
 }
