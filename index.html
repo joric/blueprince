@@ -315,7 +315,7 @@ function updateSolution() {
     const result = treeSolve(state.start, state.expected);
     if (result) {
       let moves = getMoves(result);
-      div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
+      div.textContent = moves;// moves.map(i => [7,8,9,4,5,6,1,2,3][i]); // let's not do that numpad crap
     } else {
       div.textContent ='Solution not found';
     }
@@ -406,15 +406,15 @@ window.onload = function(event) {
     </div>
 
     <div class="tiles">
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
       <button>1</button>
       <button>2</button>
       <button>3</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
     </div>
 
     <div class="spacer">
