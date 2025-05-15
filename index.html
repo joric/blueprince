@@ -291,6 +291,15 @@ let selectedColor = 'grey';
 let editMode = true;
 let savedState = null;
 let timer = null;
+let useNumpad = true;
+
+function remapMove(i, useNumpad) {
+  return useNumpad ? [7,8,9,4,5,6,1,2,3][i] : i+1;
+}
+
+function remapMoves(moves, useNumpad) {
+  return moves.map( i => { return remapMove(i, useNumpad); });
+}
 
 function selectColor(color) {
   selectedColor = color;
@@ -315,8 +324,7 @@ function updateSolution() {
     const result = treeSolve(state.start, state.expected);
     if (result) {
       let moves = getMoves(result);
-      // div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]); // numpad crap (also needs editing buttons in html)
-      div.textContent = moves.map(i => i+1);
+      div.textContent = remapMoves(moves, useNumpad);
     } else {
       div.textContent ='Solution not found';
     }
@@ -370,6 +378,7 @@ function tileClick(e, i) {
 function updateColors(start, expected) {
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.className = start[i]; });
   document.querySelectorAll('.corner button').forEach((div,i) => { div.className = expected[i]; });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.textContent = remapMove(i, useNumpad); });
 }
 
 window.onload = function(event) {
