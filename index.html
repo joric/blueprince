@@ -225,7 +225,14 @@ function treeSolve(board, expected) {
     const currentLevel = levels[depth];
     const nextLevel = [];
     for (const node of currentLevel) {
-      for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+
+        //let i = useNumpad ? [6,7,8,3,4,5,0,1,2][j] : j; // scan as numpad? solver still doesn't match https://kkawabat.github.io/MoraJaiBox/
+        //let i = useNumpad ? [8,7,6,5,4,3,2,1,0][j] : j; // scan backwards? still doesn't match 742544446 for trading post
+        let i=j;
+
+        //console.log(j+1,'=>', i+1);
+
         const newBoard = copyBoard(node.board);
         clickBoard(newBoard, i);
         const hash = newBoard.join('');
@@ -286,6 +293,7 @@ let presets = {
 
 let pool = Object.keys(presets);
 let defaultPreset = 'grey';//pool[Math.floor(Math.random()*pool.length)];
+defaultPreset = 'trading_post';
 let defaultColor = 'grey';
 let selectedColor = 'grey';
 let editMode = true;
