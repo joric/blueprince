@@ -48,6 +48,7 @@ body {
 
 .box h2 {
   font-size: min(4cqw, 4cqh);
+  cursor: pointer;
 }
 
 .tiles {
@@ -378,6 +379,7 @@ window.onload = function(event) {
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
   document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
   document.querySelector('.box h1').onclick = toggleMode;
+  document.querySelector('.box h2').onclick = toggleMode;
 }
 
 </script>
