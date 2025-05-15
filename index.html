@@ -333,7 +333,7 @@ function updateSolution() {
     const result = treeSolve(state.start, state.expected);
     if (result) {
       let moves = getMoves(result);
-      div.textContent = remapMoves(moves, useNumpad);
+      div.textContent = remapMoves(moves, useNumpad).join('');
     } else {
       div.textContent ='Solution not found';
     }
@@ -399,7 +399,6 @@ window.onload = function(event) {
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
   document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
   document.querySelector('.box h1').onclick = toggleMode;
-  document.querySelector('.box h2').onclick = toggleMode;
 
   window.addEventListener("keydown",function (e) {
     switch(e.code) {
