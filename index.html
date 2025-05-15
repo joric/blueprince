@@ -362,9 +362,9 @@ function paletteClick(e) {
   selectColor(e.target.className);
 }
 
-function tileClick(e, i) {
+function tileClick(div, i) {
   if (editMode) {
-    setColor(e.target, selectedColor);
+    setColor(div, selectedColor);
   } else {
     let state = getState();
     clickBoard(state.start, i);
@@ -387,10 +387,22 @@ window.onload = function(event) {
   updateColors(presets[defaultPreset].start, presets[defaultPreset].expected);
   updateSolution();
   document.querySelectorAll('.palette button').forEach((div,i) => div.onclick = paletteClick );
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(e,i); }});
+  document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
+  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
   document.querySelector('.box h1').onclick = toggleMode;
   document.querySelector('.box h2').onclick = toggleMode;
+
+  window.addEventListener("keydown",function (e) {
+    switch(e.code) {
+      case 'Enter': toggleMode();
+    }
+    !editMode && document.querySelectorAll('.tiles button').forEach((div,i) => {
+      if (div.textContent==e.key) {
+        console.log(div);
+      }
+    });
+  });
+
 }
 
 </script>
