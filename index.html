@@ -47,7 +47,7 @@ body {
 }
 
 .box h2 {
-  font-size: min(3cqw, 3cqh);
+  font-size: min(4cqw, 4cqh);
 }
 
 .tiles {
@@ -314,7 +314,7 @@ function updateSolution() {
   const result = treeSolve(state.start, state.expected);
   if (result) {
     let moves = getMoves(result);
-    div.textContent = 'Solution: ' + moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
+    div.textContent = moves.map(i => [7,8,9,4,5,6,1,2,3][i]);
   } else {
     div.textContent = 'Solution not found';
   }
