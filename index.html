@@ -301,6 +301,7 @@ let editMode = true;
 let savedState = null;
 let timer = null;
 let useNumpad = true;
+let lastColor = 'black';
 
 function remapIndex(i) {
   return useNumpad ? [7,8,9,4,5,6,1,2,3][i] : i+1;
@@ -363,11 +364,15 @@ function toggleMode(e) {
 function paletteClick(e) {
   let color = e.target.className;
 
+  if (selectedColor!='grey') {
+    lastColor = selectedColor;
+  }
+
   if (color=='grey') {
     if (editMode) {
       setEditMode(false);
     } else {
-      color = 'black';
+      color = lastColor;
       setEditMode(true);
     }
   } else {
