@@ -32,13 +32,6 @@ body {
   grid-template-columns: 15% 70% 15%;
   grid-template-rows: 15% 70% 15%;
   overflow: hidden;
-  background: #ddd;
-}
-
-.spacer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .box h1 {
@@ -60,6 +53,22 @@ body {
   display: flex;
 }
 
+.spacer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spacer-left {
+  justify-content: left;
+  align-items: left;
+}
+
+.spacer-right {
+  justify-content: right;
+  align-items: right;
+}
+
 .tiles button {
   display: flex;
   align-items: center;
@@ -71,8 +80,9 @@ body {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(1, 1fr);
-  height: 85%;
+  height: 80%;
   aspect-ratio: 1/5;
+
 }
 
 .palette button {
@@ -97,7 +107,7 @@ body {
   z-index: -1;
 }
 
-.grey::after { background: grey; }
+.grey::after { background: none; }
 .black::after { background: black; }
 .red::after { background: red; }
 .yellow::after { background: yellow; }
@@ -435,7 +445,7 @@ window.onload = function(event) {
     <div class="spacer"><h1 id="title" title="Click to toggle modes."></h1></div>
     <div class="corner"><button></button></div>
 
-    <div class="spacer">
+    <div class="spacer spacer-left">
       <div class="palette">
         <button class="grey" title="Toggle Play Mode"></button>
         <button class="black" title="Moves all of the tiles in the row one to the right."></button>
@@ -457,7 +467,7 @@ window.onload = function(event) {
       <button></button>
     </div>
 
-    <div class="spacer">
+    <div class="spacer spacer-right">
       <div class="palette">
         <button class="pink" title="Rotates every adjacent tile one clockwise position."></button>
         <button class="purple" title="Moves down one position."></button>
