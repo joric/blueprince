@@ -314,6 +314,7 @@ function selectColor(color) {
   selectedColor = color;
   document.querySelectorAll('.palette button').forEach((div,i) => {
     div.style.border = color==div.className ? '3px solid black' : '';
+    if (div.className=='grey') div.innerHTML = editMode ? '&#9658;': '&#9724;';
   });
 }
 
@@ -361,7 +362,16 @@ function toggleMode(e) {
 
 function paletteClick(e) {
   let color = e.target.className;
-  setEditMode(color != 'grey');
+
+  if (color=='grey') {
+    if (editMode) {
+      setEditMode(false);
+    } else {
+      setEditMode(true);
+      color = 'black';
+    }
+  }
+
   selectColor(color);
 }
 
@@ -420,7 +430,7 @@ window.onload = function(event) {
 
     <div class="spacer">
       <div class="palette">
-        <button class="grey" title="Play mode">&#x25B6;</button>
+        <button class="grey" title="Toggle Play Mode"></button>
         <button class="black" title="Moves all of the tiles in the row one to the right."></button>
         <button class="red" title="Turns all white tiles black and all black tiles red."></button>
         <button class="green" title="Swaps positions with a tile in the opposite position."></button>
