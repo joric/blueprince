@@ -367,9 +367,11 @@ function paletteClick(e) {
     if (editMode) {
       setEditMode(false);
     } else {
-      setEditMode(true);
       color = 'black';
+      setEditMode(true);
     }
+  } else {
+    setEditMode(true);
   }
 
   selectColor(color);
