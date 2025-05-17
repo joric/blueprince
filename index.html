@@ -325,7 +325,7 @@ function remapMoves(moves) {
 function selectColor(color) {
   selectedColor = color;
   document.querySelectorAll('.palette button').forEach((div,i) => {
-    div.style.border = color==div.className ? '3px solid black' : '';
+    div.style.border = color==div.className ? '4px solid black' : '';
     if (div.className=='grey') div.innerHTML = editMode ? '&#9658;': '&#9724;';
   });
 }
