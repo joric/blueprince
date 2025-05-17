@@ -43,7 +43,6 @@ body {
 
 .box h1 {
   font-size: min(5cqw, 5cqh);
-  cursor: pointer;
 }
 
 .box h2 {
@@ -77,6 +76,8 @@ body {
 }
 
 .palette button {
+  font-size: min(6cqw, 6cqh);
+  line-height: min(6cqw, 6cqh);
 }
 
 .box button {
@@ -295,7 +296,7 @@ let pool = Object.keys(presets);
 let defaultPreset = 'grey';//pool[Math.floor(Math.random()*pool.length)];
 //defaultPreset = 'trading_post';
 let defaultColor = 'grey';
-let selectedColor = 'grey';
+let selectedColor = 'black';
 let editMode = true;
 let savedState = null;
 let timer = null;
@@ -340,14 +341,7 @@ function updateSolution() {
 }
 
 function setColor(div, color) {
-  if (!div.lastColor) div.lastColor = div.className;
-  if (!div.color) div.color = div.className;
-  if (div.color == color) {
-    [div.color, div.lastColor] = [div.lastColor, div.color];
-  } else {
-    [div.lastColor, div.color] = [div.color, color];
-  }
-  div.className = div.color;
+  div.className = div.className == color ? 'grey' : color;
 }
 
 function setEditMode(mode) {
@@ -357,7 +351,7 @@ function setEditMode(mode) {
     updateColors(savedState.start, savedState.expected);
   }
   editMode = mode;
-  document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Solver' : 'Play Mode';
+  document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Solver' : 'Mora Jai Box Player';
   updateSolution();
 }
 
@@ -366,8 +360,9 @@ function toggleMode(e) {
 }
 
 function paletteClick(e) {
-  setEditMode(true);
-  selectColor(e.target.className);
+  let color = e.target.className;
+  setEditMode(color != 'grey');
+  selectColor(color);
 }
 
 function tileClick(div, i) {
@@ -397,7 +392,6 @@ window.onload = function(event) {
   document.querySelectorAll('.palette button').forEach((div,i) => div.onclick = paletteClick );
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
   document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
-  document.querySelector('.box h1').onclick = toggleMode;
 
   window.addEventListener("keydown",function (e) {
     switch(e.code) {
@@ -426,7 +420,7 @@ window.onload = function(event) {
 
     <div class="spacer">
       <div class="palette">
-        <button class="grey" title="Acts as an empty space and has no function,"></button>
+        <button class="grey" title="Play mode">&#x25B6;</button>
         <button class="black" title="Moves all of the tiles in the row one to the right."></button>
         <button class="red" title="Turns all white tiles black and all black tiles red."></button>
         <button class="green" title="Swaps positions with a tile in the opposite position."></button>
