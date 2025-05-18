@@ -766,6 +766,7 @@ function paletteClick(e) {
 function tileClick(div, i) {
   if (editMode) {
     setColor(div, selectedColor);
+    document.querySelector('.presets').selectedIndex = 0;
   } else {
     let state = getState();
     clickBoard(state.start, i);
@@ -774,8 +775,6 @@ function tileClick(div, i) {
 
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 25);
-
-  document.querySelector('.presets').selectedIndex = 0;
 }
 
 function updateColors(start, expected) {
