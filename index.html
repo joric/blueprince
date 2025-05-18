@@ -656,7 +656,6 @@ function fillPresets() {
 
   document.querySelector('.presets').onchange = e=> {
     loadPreset(e.target.value);
-    setEditMode(true);
     clearTimeout(timer);
     timer = setTimeout(updateSolution, 25);
   }
