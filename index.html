@@ -292,8 +292,22 @@ let timer = null;
 let useNumpad = true;
 let lastColor = 'black';
 
+// Based on  https://github.com/zzAIMoo/zzaimoo.github.io/blob/master/mora_jai/mora_jai_scripts.js
+let svg_icons={
+  'orange':'<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+  'red':'<svg viewBox="0 0 24 24"><polygon points="12,2 22.8,9.2 18.2,22.8 5.8,22.8 1.2,9.2"/></svg>',
+  'purple': '<svg viewBox="0 0 24 24"><path d="M6 2h12v5l-4 4 4 4v5H6v-5l4-4-4-4V2zm2 1h8v3.24L12 10.5 7.99 6.24H8V3zm0 18h8v-3.24L12 13.5 7.99 17.76H8v3z"/></svg>',
+  'black': '<svg viewBox="0 0 24 24"><path d="M9 20 C9 18, 7 18, 7 16 L7 8 C7 6, 9 6, 9 4 A4 4 0 0 1 15 4 C15 6, 17 6, 17 8 L17 16 C17 18, 15 18, 15 20 A3 3 0 0 1 9 20 Z"/></svg>',
+  'green':'<svg viewBox="0 0 24 24"><polygon points="12,2 22,12 12,22 2,12"/></svg>',
+  'pink':'<svg viewBox="0 0 24 24"><path d="M4,18 L8,7 L18,11 A5.85,5.85 0 0 1 14,22 Z"/></svg>',
+  'yellow': '<svg viewBox="0 0 24 24"><path d="M3 18h18l-5-8-4 4-4-3-5 7z"/></svg>',
+  'white': '<svg viewBox="0 0 24 24"><path d="M5 18A7 7 0 0 1 19 18"/><path d="M3.5 18A8.5 8.5 0 0 1 20.5 18"/><path d="M2 18A10 10 0 0 1 22 18"/></svg>',
+  'blue':'<svg viewBox="0 0 24 24"><path d="M12 2 C15 5, 18 6, 21 10 C19 12, 17 12.5, 15 14.5 C17 16.5, 19 17, 21 20 C18 22, 15 22, 12 22 C9 22, 6 22, 3 20 C5 17, 7 16.5, 9 14.5 C7 12.5, 5 12, 3 10 C6 6, 9 5, 12 2 Z"/></svg>',
+  'gray': ''
+};
 
-// Taken from https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
+// Based on https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
+// See https://www.reddit.com/r/BluePrince/comments/1jwyu8z/late_game_puzzle_help_box/msh4un4/
 // I don't use solutions from here but I put them into tooltips so you can compare them
 const presets = [
   { location: "Trading Post",
@@ -590,60 +604,61 @@ const presets = [
     solution: "887788984884968"
   },
   {
-    location: "Blueprints H1",
+    location: "Blueprints H1 (Foyer, CAST)",
     pattern: "green green green grey orange orange blue grey purple green green green green",
     solution: "766749449"
   },
   {
-    location: "Blueprints H2",
+    location: "Blueprints H2 (Pool, A)",
     pattern: "red white yellow blue green blue blue yellow blue red red red red",
     solution: "256564542287899"
   },
   {
-    location: "Blueprints H3",
+    location: "Blueprints H3 (Servants Quarters, TINT)",
     pattern: "grey grey grey black red black white grey yellow black black black black",
     solution: "364147346388"
   },
   {
-    location: "Blueprints H4",
+    location: "Blueprints H4 (Pump Room, OF)",
     pattern: "purple blue purple black green orange black green orange purple purple purple purple",
     solution: "4589156253971"
   },
   {
-    location: "Blueprints H5 (unsolved)",
-    pattern: "black grey grey white green green blue yellow orange blue blue blue blue",
-    solution: ""
+    location: "Blueprints H5 (Furnace, TRUTH)",
+    pattern: "black grey grey white green white blue yellow orange blue blue blue blue", // fixed colors
+    solution: "227565146412292" // added solution
   },
   {
-    location: "Blueprints I1",
+    location: "Blueprints i1 (Archives, THROUGH)",
     pattern: "red grey black orange orange orange green grey purple orange red orange red",
     solution: "1199162399718987871"
   },
   {
-    location: "Blueprints I2",
+    location: "Blueprints i2 (Chapel, LANTERN)",
     pattern: "blue orange blue black black orange blue orange blue orange orange orange orange",
     solution: "175582617"
   },
   {
-    location: "Blueprints I3",
+    location: "Blueprints i3 (Vectibule, LIGHT)",
     pattern: "grey green grey orange black red black white purple black purple red orange",
     solution: "88212858351223868215839"
   },
   {
-    location: "Blueprints I4",
+    location: "Blueprints i4 (Coat Check, IN)",
     pattern: "yellow green yellow black black black blue green blue blue black black blue",
     solution: "33337735377812"
   },
   {
-    location: "Blueprints I5",
+    location: "Blueprints i5 (Aquarium, SKETCHES)",
     pattern: "pink grey yellow red yellow white orange blue black yellow yellow yellow yellow",
     solution: "744442544448443244"
   },
   {
-    location: "Blueprints 46th room",
+    location: "Blueprints 46th room (was Furnace, BLUE)",
     pattern: "orange pink orange grey green grey blue grey blue blue blue blue blue",
     solution: "18868889868888"
   },
+
 ]
 
 function fillPresets() {
@@ -669,6 +684,7 @@ function loadEntry(entry) {
   let data = entry.pattern.split(' ');
   let start = data.slice(0,10);
   let expected = data.slice(-4);
+  expected = [0, 1, 3, 2].map(i => expected[i]);
   updateColors(start, expected);
 }
 
@@ -694,6 +710,9 @@ function selectColor(color) {
   selectedColor = color;
   document.querySelectorAll('.palette button').forEach((div,i) => {
     div.style.border = color==div.className ? '4px solid black' : '';
+
+    //div.innerHTML = svg_icons[div.className]; // TODO breaks class name
+
     if (div.className=='grey') div.innerHTML = editMode ? '&#9658;': '&#9724;';
   });
 }
