@@ -655,6 +655,7 @@ function fillPresets() {
   }
 
   document.querySelector('.presets').onchange = e=> {
+    setEditMode(false);
     loadPreset(e.target.value);
     savedState = getState();
     clearTimeout(timer);
@@ -730,6 +731,9 @@ function setEditMode(mode) {
     updateColors(savedState.start, savedState.expected);
   }
   editMode = mode;
+  
+  if (!editMode) selectColor('grey');
+
   document.querySelector('#title').textContent = editMode ? 'Mora Jai Box Solver' : 'Simulation Mode';
   updateSolution();
 }
