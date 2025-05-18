@@ -656,6 +656,7 @@ function fillPresets() {
 
   document.querySelector('.presets').onchange = e=> {
     loadPreset(e.target.value);
+    savedState = getState();
     clearTimeout(timer);
     timer = setTimeout(updateSolution, 25);
   }
@@ -811,7 +812,7 @@ window.onload = function(event) {
   <div class="box">
 
     <div class="corner"><button></button></div>
-    <div class="spacer"><h1 id="title" title="Click to toggle modes."></h1></div>
+    <div class="spacer"><h1 id="title"></h1></div>
     <div class="corner"><button></button></div>
 
     <div class="spacer spacer-left">
