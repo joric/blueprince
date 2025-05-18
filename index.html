@@ -246,7 +246,7 @@ function treeSolve(board, expected) {
   seen.add(board.join(''));
   const levels = [[root]];
 
-  for (let depth = 0; depth < 30; depth++) {
+  for (let depth = 0; depth < 20; depth++) {
     const currentLevel = levels[depth];
     const nextLevel = [];
     for (const node of currentLevel) {
@@ -609,7 +609,7 @@ const presets = [
     solution: "4589156253971"
   },
   {
-    location: "Blueprints H5", // this one hangs
+    location: "Blueprints H5 (unsolved)",
     pattern: "black grey grey white green green blue yellow orange blue blue blue blue",
     solution: ""
   },
