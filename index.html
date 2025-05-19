@@ -681,7 +681,10 @@ const presets = [
     pattern: "orange pink orange grey green grey blue grey blue blue blue blue blue",
     solution: "18868889868888"
   },
-
+  { location: "Underpass", // see https://deltiasgaming.com/blue-prince-how-to-solve-the-underpass-mora-jai-puzzle-box/
+    pattern:"black black black grey black grey yellow grey yellow black black black black",
+    solution: "5367861"
+  },
 ]
 
 function fillPresets() {
@@ -764,7 +767,13 @@ function updateSolution() {
 }
 
 function setColor(div, color) {
-  div.className = div.className == color ? 'grey' : color;
+  div.className = color;
+
+  document.querySelectorAll('.corner button').forEach((o,i) => {
+    if (o==div) {
+      div.innerHTML = getSVG(div.className);
+    }
+  });
 }
 
 function setEditMode(mode) {
@@ -808,9 +817,12 @@ function paletteClick(e) {
 
 function tileClick(div, i) {
   if (editMode) {
-    setColor(div, selectedColor);
+    setColor(div, div.className == selectedColor ? 'grey' : selectedColor);
     document.querySelector('.presets').selectedIndex = 0;
   } else {
+
+    if (i>=9) return;
+
     let state = getState();
     clickBoard(state.start, i);
     updateColors(state.start, state.expected);
@@ -821,8 +833,8 @@ function tileClick(div, i) {
 }
 
 function updateColors(start, expected) {
-  document.querySelectorAll('.tiles button').forEach((div,i) => { div.className = start[i]; });
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.className = expected[i]; });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { setColor(div, start[i]); });
+  document.querySelectorAll('.corner button').forEach((div,i) => { setColor(div, expected[i]); });
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.textContent = remapIndex(i); });
 }
 
@@ -835,7 +847,7 @@ window.onload = function(event) {
 
   document.querySelectorAll('.palette button').forEach((div,i) => div.onclick = paletteClick );
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
-  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
+  document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i+9); }});
 
   window.addEventListener("keydown",function (e) {
     switch(e.code) {
