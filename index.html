@@ -752,8 +752,12 @@ function getState() {
 function updateSolution() {
   let div = document.querySelector('#result');
   let state = getState();
+
+  if (state.expected.every(x=>x=='grey')) { div.textContent = 'Set Corners'; return; }
+  if (state.start.every(x=>x=='grey')) { div.textContent = 'Set Tiles'; return; }
+
   if (isSolution(state.start, state.expected)) {
-    div.textContent = state.expected.every(x=>x=='grey') ? 'Set Corners' : 'Solved';
+    div.textContent = 'Solved';
   } else {
     const result = treeSolve(state.start, state.expected);
     if (result) {
