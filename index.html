@@ -104,12 +104,11 @@ body {
   inset: 0;
   pointer-events: none;
   opacity: 0.75;
-
   z-index: -1;
 }
 
 .grey::after { background: lightgrey; }
-.black::after { background: black; }
+.black::after { background: black;}
 .red::after { background: red; }
 .yellow::after { background: yellow; }
 .purple::after { background: purple; }
@@ -133,6 +132,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.svg-path {
+  fill:none;
+  stroke-width: 10px;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-opacity: 1;
+}
+
+button { stroke:black; }
+.black, .blue, .green, .purple, .red { color: white; stroke: white; }
 
 </style>
 
@@ -314,7 +324,7 @@ let svg_icons={
 
 function getSVG(color) {
   let path = svg_icons[color];
-  return path ? `<div class="svg-icon"><svg viewBox="-50 -48 230 230"><path style="fill:none;stroke:black;stroke-width:10px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="${path}"></svg></div>` : '';
+  return path ? `<div class="svg-icon"><svg viewBox="-50 -48 230 230"><path class="svg-path" d="${path}"></svg></div>` : '';
 }
 
 // Based on https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
