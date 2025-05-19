@@ -753,14 +753,14 @@ function updateSolution() {
   let div = document.querySelector('#result');
   let state = getState();
   if (isSolution(state.start, state.expected)) {
-    div.textContent = state.expected.every(x=>x=='grey') ? 'Ready' : 'Solved';
+    div.textContent = state.expected.every(x=>x=='grey') ? 'Set Corners' : 'Solved';
   } else {
     const result = treeSolve(state.start, state.expected);
     if (result) {
       let moves = getMoves(result);
       div.textContent = remapMoves(moves, useNumpad).join('');
     } else {
-      div.textContent ='Solution not found';
+      div.textContent = state.start.every(x=>x=='grey') ? 'Set Tiles' : 'Solution not found';
     }
   }
 }
