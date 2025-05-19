@@ -126,7 +126,7 @@ body {
   margin: 12px;
 }
 
-.svg-icon {
+button svg {
   pointer-events: none;
   display: flex;
   justify-content: center;
@@ -135,7 +135,7 @@ body {
 
 button { stroke:black; }
 
-.svg-path {
+button svg path {
   fill: none;
   stroke-width: 10px;
   stroke-linecap: butt;
@@ -327,7 +327,7 @@ let svg_icons={
 
 function getSVG(color) {
   let path = svg_icons[color];
-  return path ? `<div class="svg-icon"><svg viewBox="-50 -48 230 230"><path class="svg-path" d="${path}"></svg></div>` : '';
+  return path ? `<svg viewBox="-50 -48 230 230"><path d="${path}"></svg>` : '';
 }
 
 // Based on https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
