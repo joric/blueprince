@@ -753,7 +753,7 @@ function updateSolution() {
   let div = document.querySelector('#result');
   let state = getState();
   if (isSolution(state.start, state.expected)) {
-    div.textContent = 'Solved';
+    div.textContent = state.expected.every(x=>x=='grey') ? 'Ready' : 'Solved';
   } else {
     const result = treeSolve(state.start, state.expected);
     if (result) {
@@ -833,10 +833,9 @@ function updateColors(start, expected) {
 
 window.onload = function(event) {
   fillPresets();
-  setEditMode(editMode);
-  selectColor(selectedColor);
-
   loadPreset(defaultPreset);
+  selectColor(selectedColor);
+  setEditMode(editMode);
 
   document.querySelectorAll('.palette button').forEach((div,i) => div.onclick = paletteClick );
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
