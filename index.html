@@ -760,7 +760,7 @@ function updateSolution() {
       let moves = getMoves(result);
       div.textContent = remapMoves(moves, useNumpad).join('');
     } else {
-      div.textContent = state.start.every(x=>x=='grey') ? 'Set Tiles' : 'Solution not found';
+      div.textContent = 'Solution not found';
     }
   }
 }
