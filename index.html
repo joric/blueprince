@@ -782,12 +782,12 @@ function setColor(div, i, color) {
 
   div.animate(
     [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(90deg)' }],
-    { duration: 100, fill: 'forwards', easing: 'ease-in' }
+    { duration: 200, fill: 'forwards', easing: 'ease-in' }
   ).onfinish = () => {
     div.className = color;
     div.animate(
       [{ transform: 'rotateY(-90deg)' }, { transform: 'rotateY(0deg)' }],
-      { duration: 100, fill: 'forwards', easing: 'ease-out' }
+      { duration: 200, fill: 'forwards', easing: 'ease-out' }
     )
   };
 }
