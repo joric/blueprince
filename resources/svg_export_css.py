@@ -1,7 +1,7 @@
 from xml.dom.minidom import parse, parseString
 
 doc = parse('icons.svg')
-f=open("icons.txt", "w")
+f=open("icons.css", "w")
 
 def truncate_path(d):
     def truncate(s):
