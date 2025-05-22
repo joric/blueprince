@@ -349,7 +349,7 @@ const presets = [
     solution: "7444"
   },
   {
-    location: "Blue Prince Throne Room",
+    location: "Throne Room",
     pattern: "black green blue blue blue blue purple grey grey blue blue blue blue",
     solution: "79898647"
   },
@@ -378,42 +378,42 @@ const presets = [
     pattern: "white grey white white grey grey grey grey white white white white white",
     solution: "78526"
   },
-  { location: "Inner sanctum Orindia",
+  { location: "Inner sanctum 1",
     pattern:"green black green black black black green yellow green black black black black",
     solution: "2661143222928"
   },
   {
-    location: "Inner sanctum Fenn Aries",
+    location: "Inner sanctum 2",
     pattern: "grey green grey orange red orange white green black red red red red",
     solution: "38811493622371247455"
   },
   {
-    location: "Inner sanctum Arch Aries",
+    location: "Inner sanctum 3",
     pattern: "black yellow grey yellow green yellow grey yellow black yellow yellow yellow yellow",
     solution: "2623878219446"
   },
   {
-    location: "Inner sanctum Eraja",
+    location: "Inner sanctum 4",
     pattern: "yellow purple yellow green red black purple purple purple purple purple purple purple",
     solution: "68848829971879756556"
   },
   {
-    location: "Inner sanctum Corarica",
+    location: "Inner sanctum 5",
     pattern: "orange black orange orange orange orange purple green purple orange orange orange orange",
     solution: "829971879779397"
   },
   {
-    location: "Inner sanctum Mora Jai",
+    location: "Inner sanctum 6",
     pattern: "yellow yellow yellow white pink white grey grey grey white white white white",
     solution: "412555513"
   },
   {
-    location: "Inner sanctum Verra",
+    location: "Inner sanctum 7",
     pattern: "pink pink grey grey grey grey orange orange orange pink pink pink pink",
     solution: "77484744525886"
   },
   {
-    location: "Inner sanctum Nuance",
+    location: "Inner sanctum 8",
     pattern: "pink pink grey grey grey grey orange orange orange pink pink pink pink",
     solution: "76239979895787131266747"
   },
@@ -718,7 +718,7 @@ function loadEntry(entry) {
   let expected = data.slice(-4);
   expected = [0, 1, 3, 2].map(i => expected[i]);
   updateColors(start, expected);
-  entry.location && document.querySelector('#title').textContent = entry.location;
+  if (entry.location) document.querySelector('#title').textContent = entry.location;
 }
 
 function loadPreset(preset) {
