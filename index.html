@@ -16,6 +16,7 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .container {
@@ -31,7 +32,6 @@ body {
   display: grid;
   grid-template-columns: 15% 70% 15%;
   grid-template-rows: 15% 70% 15%;
-  overflow: hidden;
 }
 
 .box h1 {
@@ -47,6 +47,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 1%;
+  perspective: 1000px;
 }
 
 .corner {
@@ -330,6 +331,8 @@ let savedState = null;
 let timer = null;
 let useNumpad = true;
 let lastColor = 'black';
+let gameBoard = new Array(14);
+gameBoard.fill('grey');
 
 // Based on https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
 // See https://www.reddit.com/r/BluePrince/comments/1jwyu8z/late_game_puzzle_help_box/msh4un4/
@@ -703,7 +706,7 @@ function fillPresets() {
     loadPreset(e.target.value);
     savedState = getState();
     clearTimeout(timer);
-    timer = setTimeout(updateSolution, 25);
+    timer = setTimeout(updateSolution, 250);
   }
 }
 
@@ -744,8 +747,8 @@ function selectColor(color) {
 
 function getState() {
   let start = [], expected = [];
-  document.querySelectorAll('.tiles button').forEach((div,i) => { start[i] = div.className; });
-  document.querySelectorAll('.corner button').forEach((div,i) => { expected[i] = div.className; });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { start[i] = gameBoard[i]; });
+  document.querySelectorAll('.corner button').forEach((div,i) => { expected[i] = gameBoard[i+9]; });
   return {start:start, expected:expected};
 }
 
@@ -769,8 +772,23 @@ function updateSolution() {
   }
 }
 
-function setColor(div, color) {
-  div.className = color;
+function setColor(div, i, color) {
+  gameBoard[i] = color;
+
+  let oldColor = div.className;
+  if (oldColor=='') { div.className='grey'; return; }
+  if (oldColor == color) return;
+
+  div.animate(
+    [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(90deg)' }],
+    { duration: 100, fill: 'forwards', easing: 'ease-in' }
+  ).onfinish = () => {
+    div.className = color;
+    div.animate(
+      [{ transform: 'rotateY(-90deg)' }, { transform: 'rotateY(0deg)' }],
+      { duration: 100, fill: 'forwards', easing: 'ease-out' }
+    )
+  };
 }
 
 function setEditMode(mode) {
@@ -814,24 +832,22 @@ function paletteClick(e) {
 
 function tileClick(div, i) {
   if (editMode) {
-    setColor(div, div.className == selectedColor ? 'grey' : selectedColor);
+    setColor(div, i, gameBoard[i] == selectedColor ? 'grey' : selectedColor);
     document.querySelector('.presets').selectedIndex = 0;
   } else {
-
     if (i>=9) return;
-
     let state = getState();
     clickBoard(state.start, i);
     updateColors(state.start, state.expected);
   }
 
   clearTimeout(timer);
-  timer = setTimeout(updateSolution, 25);
+  timer = setTimeout(updateSolution, 250);
 }
 
 function updateColors(start, expected) {
-  document.querySelectorAll('.tiles button').forEach((div,i) => { setColor(div, start[i]); });
-  document.querySelectorAll('.corner button').forEach((div,i) => { setColor(div, expected[i]); });
+  document.querySelectorAll('.tiles button').forEach((div,i) => { setColor(div, i, start[i]); });
+  document.querySelectorAll('.corner button').forEach((div,i) => { setColor(div, i+9, expected[i]); });
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.textContent = remapIndex(i); });
 }
 
