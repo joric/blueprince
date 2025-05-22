@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="0.93575344"
-     inkscape:cx="207.31957"
-     inkscape:cy="154.42102"
+     inkscape:zoom="1.8715069"
+     inkscape:cx="235.63899"
+     inkscape:cy="261.55394"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -56,8 +56,8 @@
        preserveAspectRatio="none"
        xlink:href="blue-prince-sigil-complete.jpg"
        id="image1"
-       x="-5959.709"
-       y="-3924.6804"
+       x="-920.5791"
+       y="-3866.9729"
        style="display:none" /><image
        width="372.51682"
        height="508.48532"
@@ -73,7 +73,7 @@
        sodipodi:nodetypes="ccccccccccccc"
        inkscape:label="1.black-orinda-aries" /><path
        id="red"
-       style="display:inline;fill:none;stroke:black;stroke-opacity:1"
+       style="display:none;fill:none;stroke:black;stroke-opacity:1"
        inkscape:label="2-red-fenn-aries"
        inkscape:transform-center-x="0.38206019"
        inkscape:transform-center-y="-15.754992"
@@ -89,8 +89,8 @@
        id="purple"
        inkscape:label="4-purple-eraja"
        sodipodi:nodetypes="ccccccc" /><path
-       style="display:none;fill:none;stroke:black;stroke-width:0.876956px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 256,433.86025 L 480.50049,181.29721 L 375.26613,97.109486 L 256,188.31288 L 122.70281,104.12518 L 31.499515,195.32847 Z"
+       style="display:inline;fill:none;stroke:black;stroke-width:0.876956px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 256,432 L 480,192 L 384,96 L 256,192 L 128,96 L 32,192 Z"
        id="orange"
        sodipodi:nodetypes="ccccccc"
        inkscape:label="5-orange-corarica" /><path
