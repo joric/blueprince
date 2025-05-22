@@ -336,7 +336,7 @@ let gameBoard = new Array(14);
 gameBoard.fill('grey');
 
 // Based on https://github.com/kkawabat/MoraJaiBox/blob/main/scripts/mora_jai_boxes.js
-// Which is based on https://steamcommunity.com/sharedfiles/filedetails/?id=3465565584
+// Also based on https://steamcommunity.com/sharedfiles/filedetails/?id=3465565584
 // See https://www.reddit.com/r/BluePrince/comments/1jwyu8z/late_game_puzzle_help_box/msh4un4/
 // I don't use solutions from here but I put them into tooltips so you can compare them
 const presets = [
@@ -759,7 +759,7 @@ function updateSolution() {
   let div = document.querySelector('#result');
   let state = getState();
 
-  if (state.start.every(x=>x=='grey')) { div.textContent = 'Paint Tiles'; return; }
+  if (state.start.every(x=>x=='grey')) { div.textContent = 'Set Tiles'; return; }
   if (state.expected.every(x=>x=='grey')) { div.textContent = 'Set Corners'; return; }
 
   if (isSolution(state.start, state.expected)) {
