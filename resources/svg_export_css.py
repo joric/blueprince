@@ -5,5 +5,5 @@ f=open("icons.txt", "w")
 
 for p in doc.getElementsByTagName('path'):
     id, d = map(p.getAttribute, ('id','d'))
-    print(f'.{id}::after {{ mask:url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: white;" d="{d}" /></svg>\') }}', file=f)
+    print(f'.{id}::after {{ mask:url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="{d}" /></svg>\') }}', file=f)
 
