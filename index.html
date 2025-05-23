@@ -777,9 +777,9 @@ function updateSolution() {
 }
 
 function setColor(div, i, color) {
+  let oldColor = gameBoard[i];
   gameBoard[i] = color;
 
-  let oldColor = div.className;
   if (oldColor=='') { div.className='grey'; return; }
   if (oldColor == color) return;
 
