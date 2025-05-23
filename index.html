@@ -780,7 +780,7 @@ function setColor(div, i, color) {
   let oldColor = gameBoard[i];
   gameBoard[i] = color;
 
-  if (oldColor=='') { div.className='grey'; return; }
+  if (div.className=='') { div.className='grey'; return; }
   if (oldColor == color) return;
 
   div.animate(
