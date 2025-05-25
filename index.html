@@ -797,7 +797,7 @@ function updateSolution() {
   if (state.expected.every(x=>x=='grey')) { div.textContent = editMode ? 'Set Corners' : fail; return; }
 
   if (isSolution(state.start, state.expected)) {
-    div.textContent = 'Solved';
+    div.textContent = 'Solved!';
   } else {
     const result = treeSolve(state.start, state.expected);
     if (result) {
