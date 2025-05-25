@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="3.7430137"
-     inkscape:cx="224.68526"
-     inkscape:cy="12.15598"
+     inkscape:zoom="1.3233552"
+     inkscape:cx="192.69203"
+     inkscape:cy="264.85709"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -66,7 +66,7 @@
        id="image1-9"
        x="-1264.1312"
        y="-494.12677"
-       style="opacity:0.638" /><path
+       style="display:none;opacity:0.638" /><path
        style="display:none;fill:none;stroke:black;stroke-width:0.876956px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 228,32 H 284.12496 L 325.58701,102.15635 H 368.31278 V 410.84447 H 326.21907 L 284.12496,481.00091 H 228 L 185.9061,410.84447 H 143.81228 L 143.18023,102.15635 H 185.9061 Z"
        id="black"
@@ -79,12 +79,12 @@
        inkscape:transform-center-y="-15.754992"
        d="M 96.322064,212.98148 L 159.02222,401.24932 L 357.45101,399.79588 L 417.38657,210.62976 L 256,95.17211 Z"
        sodipodi:nodetypes="cccccc" /><path
-       style="display:none;fill:none;stroke:black;stroke-width:0.791453px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 89.388221,448.04822 H 437.62725 L 310.99488,80.814471 L 235.01547,258.09965 L 184.36241,175.78867 Z"
+       style="display:inline;fill:none;stroke:black;stroke-width:0.791453px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 96,432 H 416 L 304,80 L 240,256 L 176,176 Z"
        id="yellow"
        sodipodi:nodetypes="cccccc"
        inkscape:label="3-yellow-arch-aries" /><path
-       style="display:none;fill:none;stroke:black;stroke-width:0.833108px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="display:inline;fill:none;stroke:black;stroke-width:0.833108px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 335.97832,255.48491 L 389.29723,442.10097 H 122.70268 L 176.02159,255.48491 L 122.70268,68.868854 H 389.29723 Z"
        id="purple"
        inkscape:label="4-purple-eraja"
