@@ -106,6 +106,7 @@ body {
   pointer-events: none;
   z-index: -1;
   content: "";
+  border-radius: inherit;
 }
 
 .box button::after {
@@ -114,6 +115,7 @@ body {
   pointer-events: none;
   z-index: -1;
   content: '';
+  border-radius: inherit;
 }
 
 .black::before { background: black; }
@@ -129,6 +131,7 @@ body {
 .black, .red, .purple, .blue, .green { color: white; }
 
 *::after { background: black; }
+
 .black::after, .red::after, .purple::after, .blue::after, .green::after { background: white; }
 
 .black::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 228,32 H 284 L 325,102 H 368 V 410 H 326 L 284,481 H 228 L 185,410 H 143 L 143,102 H 185 Z" /></svg>') }
@@ -142,7 +145,11 @@ body {
 .blue::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 256,32 C 256,32 262,86 272,112 C 288,156 336,176 336,176 C 336,176 297,191 304,240 C 320,352 400,352 400,352 C 400,352 381,365 375,392 C 369,419 368,448 368,448 C 368,448 336,400 304,400 C 272,400 256,448 256,448 C 256,448 240,399 208,400 C 175,400 144,448 144,448 C 144,448 142,416 135,390 C 128,365 112,352 112,352 C 112,352 192,352 208,240 C 214,191 176,176 176,176 C 176,176 226,150 240,112 C 248,86 256,32 256,32 Z" /></svg>') }
 
 .palette button::after {
-  margin: 10%;
+  margin: 15%;
+}
+
+.corner button::after {
+  margin: 5%;
 }
 
 .tiles button::after {
@@ -150,11 +157,11 @@ body {
 }
 
 .corner button::before {
-  opacity: 0;
+  /*opacity: 0;*/
 }
 
 .corner button::after {
-  background: black;
+  /*background: black;*/
 }
 
 .grey::after {
@@ -166,6 +173,25 @@ body {
   top: 0;
   max-width: 120px;
   margin: 12px;
+}
+
+
+.box button {
+  border: 0;
+}
+
+.tiles button, .corner button {
+  border-radius: 10%;
+  background: lightgrey;
+}
+
+.palette button {
+  border-radius: 50%;
+}
+
+body {
+  background: slategray;
+  color: white;
 }
 
 </style>
@@ -744,7 +770,7 @@ function remapMoves(moves) {
 function selectColor(color) {
   selectedColor = color;
   document.querySelectorAll('.palette button').forEach((div,i) => {
-    div.style.border = color==div.className ? '4px solid black' : '';
+    div.style.border = color==div.className ? '4px solid' : '';
     if (div.className=='grey') div.innerHTML = editMode ? '&#9658;': '&#9724;';
   });
 }
