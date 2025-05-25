@@ -771,7 +771,7 @@ function selectColor(color) {
   selectedColor = color;
   document.querySelectorAll('.palette button').forEach((div,i) => {
     div.style.border = color==div.className ? '4px solid' : '';
-    if (div.className=='grey') div.innerHTML = editMode ? '&#9658;': '&#9724;';
+    if (div.className=='grey') div.innerHTML = editMode ? '&nbsp;&#9658;': '&#9724;';
   });
 }
 
