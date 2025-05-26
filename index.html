@@ -915,8 +915,7 @@ window.onload = function(event) {
 
   window.addEventListener("keydown",function (e) {
     switch(e.code) {
-      case 'Enter': case 'Space': toggleMode(); break;
-      case 'Escape': setEditMode(true); break;
+      case 'Enter': case 'Space': case 'Escape': toggleMode(); break;
     }
     !editMode && document.querySelectorAll('.tiles button').forEach((div,i) => {
       if (div.textContent==e.key) {
