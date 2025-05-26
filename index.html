@@ -849,7 +849,9 @@ function setEditMode(mode) {
   }
   editMode = mode;
 
-  document.querySelectorAll('.palette').forEach(div=>{div.classList[editMode ? 'remove' : 'add']('disabled');});
+  document.querySelectorAll('.palette button').forEach(div=>{ div.style.opacity = editMode ? 1 : 0.1; });
+
+  document.querySelectorAll('.palette .grey').forEach(div=>{ div.style.opacity = 1.0 });
   
   if (!editMode) selectColor('grey');
 
