@@ -209,6 +209,10 @@ button:hover {
   z-index: 9;
 }
 
+.disabled {
+  opacity: 0.1;
+}
+
 </style>
 
 <script>
@@ -844,6 +848,8 @@ function setEditMode(mode) {
     updateColors(savedState.start, savedState.expected);
   }
   editMode = mode;
+
+  document.querySelectorAll('.palette').forEach(div=>{div.classList[editMode ? 'remove' : 'add']('disabled');});
   
   if (!editMode) selectColor('grey');
 
