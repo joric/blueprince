@@ -736,16 +736,28 @@ const presets = [
   },
 ]
 
+let symbols = {
+  "black": "Orinda Aries",
+  "red": "Fenn Aries",
+  "yellow": "Arch Aries",
+  "purple": "Eraja",
+  "orange": "Corarica",
+  "white": "Mora Jai",
+  "pink": "Verra",
+  "green": "Nuance",
+  "blue": "Blue Door",
+};
+
 let descriptions = {
   "grey": "Acts as an empty space and has no function.",
-  "black": "Orinda Aries: Moves all of the tiles in the row one to the right.",
-  "red": "Fenn Aries: Turns all white tiles black and all black tiles red.",
-  "yellow": "Arch Aries: Moves up one position.",
-  "purple": "Eraja: Moves down one position.",
-  "orange": "Corarica: Changes colors to match the majority of its (non-diagonal) adjacent tiles.\nIf they are evenly split, the color stays the same.",
-  "white": "Mora Jai: Expands outwards if there are any adjacent gray tiles.\nIf there are none, the tile disappears.",
-  "pink": "Verra: Rotates every adjacent tile one clockwise position.",
-  "green": "Nuance: Swaps positions with a tile in the opposite position.",
+  "black": "Moves all of the tiles in the row one to the right.",
+  "red": "Turns all white tiles black and all black tiles red.",
+  "yellow": "Moves up one position.",
+  "purple": "Moves down one position.",
+  "orange": "Changes colors to match the majority of its (non-diagonal) adjacent tiles.\nIf they are evenly split, the color stays the same.",
+  "white": "Expands outwards if there are any adjacent gray tiles.\nIf there are none, the tile disappears.",
+  "pink": "Rotates every adjacent tile one clockwise position.",
+  "green": "Swaps positions with a tile in the opposite position.",
   "blue": "Copies the ability of the tile in the middle of the 3x3 grid.",
 };
 
@@ -917,7 +929,9 @@ function updateColors(start, expected) {
 }
 
 window.onload = function(event) {
-  document.querySelectorAll('.palette button').forEach((div,i) => { div.onclick = paletteClick; div.setAttribute('title', div.getAttribute('title') ?? descriptions[div.className]); });
+  document.querySelectorAll('.palette button').forEach((div,i) => { div.onclick = paletteClick;
+    div.setAttribute('title', div.getAttribute('title') ?? symbols[div.className]+': '+ descriptions[div.className]);
+  });
   document.querySelectorAll('.tiles button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i); }});
   document.querySelectorAll('.corner button').forEach((div,i) => { div.onclick = e=> { tileClick(div,i+9); }});
 
