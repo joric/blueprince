@@ -847,7 +847,7 @@ function setColor(div, i, color) {
   let oldColor = gameBoard[i];
   gameBoard[i] = color;
 
-  div.setAttribute('title', descriptions[color]);
+  div.setAttribute('title', i<9 ? descriptions[color] : symbols[color]);
 
   if (div.className=='') { div.className='grey'; return; }
   if (oldColor == color) return;
