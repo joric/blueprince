@@ -795,6 +795,9 @@ function loadHash() {
   let start = data.slice(0,10);
   let expected = data.slice(-4);
   updateColors(start, expected);
+
+  clearTimeout(timer);
+  timer = setTimeout(updateSolution, 250);
 }
 
 function loadEntry(entry) {
