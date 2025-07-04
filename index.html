@@ -322,13 +322,13 @@ function remapSolverIndex(j) {
   return i;
 }
 
-function treeSolve(board, expected, limit=24) {
+function treeSolve(board, expected, maxMoves=30) {
   const root = new SolutionNode(null, copyBoard(board), null);
   const seen = new Set();
   seen.add(board.join(''));
   const levels = [[root]];
 
-  for (let depth = 0; depth < limit; depth++) {
+  for (let depth = 0; depth < maxMoves; depth++) {
     const currentLevel = levels[depth];
     const nextLevel = [];
     for (const node of currentLevel) {
