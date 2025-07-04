@@ -805,7 +805,7 @@ function loadHash() {
   let expected = data.slice(-4);
   updateColors(start, expected);
 
-  editMode = true;
+  editMode = false;
 
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 250);
