@@ -384,9 +384,10 @@ gameBoard.fill('grey');
 // Also see https://www.reddit.com/r/BluePrince/comments/1jwyu8z/late_game_puzzle_help_box/msh4un4/
 // The final four values define the corner colors, ordered clockwise rather than row-wise.
 // Solutions are provided for reference, my generated versions are usually more compact.
+// UPDATE: the final four values are FIXED, so they go in normal row-wise order, not clockwise.
 const presets = [
   { location: "Trading Post",
-    pattern:"pink grey grey grey yellow yellow grey yellow yellow yellow yellow yellow yellow",
+    pattern: "pink grey grey grey yellow yellow grey yellow yellow yellow yellow yellow yellow",
     solution: "742544446"
   },
   {
@@ -554,7 +555,7 @@ const presets = [
   },
   {
     location: "Atelier Maze B5",
-    pattern: "pink black pink orange grey orange pink red pink orange red orange red",
+    pattern: "pink black pink orange grey orange pink red pink orange red red orange",
     solution: "8713553159"
   },
   {
@@ -604,7 +605,7 @@ const presets = [
   },
   {
     location: "Atelier Maze D5",
-    pattern: "orange yellow orange green yellow green black yellow black green yellow green yellow",
+    pattern: "orange yellow orange green yellow green black yellow black green yellow yellow green",
     solution: "3322273816"
   },
   {
@@ -669,7 +670,7 @@ const presets = [
   },
   {
     location: "Atelier Maze G3",
-    pattern: "yellow yellow yellow black black black grey green grey black yellow black yellow",
+    pattern: "yellow yellow yellow black black black grey green grey black yellow yellow black",
     solution: "22283351277836292"
   },
   {
@@ -704,12 +705,12 @@ const presets = [
   },
   {
     location: "Atelier Maze H5", // (Furnace, TRUTH)",
-    pattern: "black grey grey white green white blue yellow orange blue blue blue blue", // fixed colors
+    pattern: "black grey grey white green white blue yellow orange blue blue blue blue",
     solution: "227565146412292" // added solution
   },
   {
     location: "Atelier Maze i1",// (Archives, THROUGH)",
-    pattern: "red grey black orange orange orange green grey purple orange red orange red",
+    pattern: "red grey black orange orange orange green grey purple orange red red orange",
     solution: "1199162399718987871"
   },
   {
@@ -719,12 +720,12 @@ const presets = [
   },
   {
     location: "Atelier Maze i3",// (Vectibule, LIGHT)",
-    pattern: "grey green grey orange black red black white purple black purple red orange",
+    pattern: "grey green grey orange black red black white purple black purple orange red",
     solution: "88212858351223868215839"
   },
   {
     location: "Atelier Maze i4",// (Coat Check, IN)",
-    pattern: "yellow green yellow black black black blue green blue blue black black blue",
+    pattern: "yellow green yellow black black black blue green blue blue black blue black",
     solution: "33337735377812"
   },
   {
@@ -738,13 +739,13 @@ const presets = [
     solution: "18868889868888"
   },
   {
-    location: "Benchmark 1",
+    location: "Benchmark 1", // https://www.reddit.com/r/BluePrince/comments/1lmp6bx/create_the_longest_box/
     pattern: "orange grey blue blue orange black yellow grey green orange orange orange orange",
     solution: "461317432371366129253213"
   },
   {
     location: "Benchmark 2",
-    pattern:"grey purple blue grey orange black orange yellow blue orange orange orange yellow",
+    pattern: "grey purple blue grey orange black orange yellow blue orange orange orange yellow",
     solution: "8649758643115142668478569643115266431",
   }
 ]
@@ -814,7 +815,7 @@ function loadEntry(entry) {
   let data = entry.pattern.split(' ');
   let start = data.slice(0,10);
   let expected = data.slice(-4);
-  expected = [0, 1, 3, 2].map(i => expected[i]);
+  // expected = [0, 1, 3, 2].map(i => expected[i]); // no need, was fixed in latest update
   updateColors(start, expected);
   if (entry.location) document.querySelector('#title').textContent = entry.location;
 }
