@@ -803,10 +803,8 @@ function loadHash() {
   let data = location.hash.slice(1).split('+');
   let start = data.slice(0,10);
   let expected = data.slice(-4);
+  setEditMode(false);
   updateColors(start, expected);
-
-  editMode = false;
-
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 250);
 }
