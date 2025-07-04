@@ -745,9 +745,8 @@ const presets = [
   {
     location: "Benchmark 2",
     pattern:"grey purple blue grey orange black orange yellow blue orange orange orange yellow",
-
+    solution: "8649758643115142668478569643115266431",
   }
-
 ]
 
 let symbols = {
@@ -804,6 +803,8 @@ function loadHash() {
   let start = data.slice(0,10);
   let expected = data.slice(-4);
   updateColors(start, expected);
+
+  editMode = true;
 
   clearTimeout(timer);
   timer = setTimeout(updateSolution, 250);
