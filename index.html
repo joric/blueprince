@@ -1021,7 +1021,12 @@ window.onload = function(event) {
     try {
       return base64decode_preset(input);
     } catch (error) {
-      return { location: 'Clipboard', pattern: input.replaceAll('+',' ') };
+      input = input.replaceAll('+',' ');
+      if (input.split(' ').length==13) {
+        return { location: 'Clipboard', pattern: input };
+      } else {
+        throw new Error("invalid input");
+      }
     }
   }
 
