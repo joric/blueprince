@@ -1037,12 +1037,12 @@ window.onload = function(event) {
       try {
         let preset = decode_paste(input);
         //console.log('loading preset', preset);
+        setEditMode(false);
         loadEntry(preset);
         savedState = getState();
         clearTimeout(timer);
         timer = setTimeout(updateSolution, 250);
         updateHash();
-        setEditMode(false);
       } catch (error) {
         console.log('could not decode or apply data', error);
       }
