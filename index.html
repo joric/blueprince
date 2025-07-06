@@ -1066,6 +1066,7 @@ window.onload = function(event) {
       let preset = decode_paste(input);
       if (preset) {
         setEditMode(false);
+        document.querySelector('.presets').selectedIndex = 0;
         loadEntry(preset);
         savedState = getState();
         clearTimeout(timer);
