@@ -311,7 +311,13 @@ function isSolution(board, expected) {
 }
 
 function clickBoard(board, idx) {
-  colorFunctions[board[idx]](board, idx);
+  try {
+    colorFunctions[board[idx]](board, idx);
+  } catch (error) {
+    console.log('possibly wrong color at index', error);
+    console.log('board:', board);
+    console.log('idx:', idx);
+  }
 }
 
 function copyBoard(board) {
@@ -790,7 +796,6 @@ function fillPresets() {
     savedState = getState();
     clearTimeout(timer);
     timer = setTimeout(updateSolution, 250);
-
     updateHash();
   }
 }
@@ -989,6 +994,53 @@ window.onload = function(event) {
   if (location.hash) {
     loadHash();
   }
+
+  function base64decode_preset(input) {
+    // see https://github.com/eestsoftware/MoraJaiBox/blob/main/index.html
+    let code = atob(input);
+    code = code.split("/");
+    var gridCode = code[0].split(";");
+    for (var i = 0; i < gridCode.length; i++) {gridCode[i] = parseInt(gridCode[i]); }
+    var newGrid = [[gridCode[0], gridCode[1], gridCode[2]], [gridCode[3], gridCode[4], gridCode[5]], [gridCode[6], gridCode[7], gridCode[8]]];
+    var newColors = code[1].split(";");
+    for (var i = 0; i < newColors.length; i++) {newColors[i] = parseInt(newColors[i]); }
+    var boxData = [code[2], input];
+
+    // convert into preset
+    let colorTable = ['grey','white','green','black','purple','yellow','pink','orange','red','blue'];
+    const makeColors = data => data.map(num => colorTable[num] || colorTable[0]);
+    let newGrid2 = [gridCode[0], gridCode[1], gridCode[2], gridCode[3], gridCode[4], gridCode[5], gridCode[6], gridCode[7], gridCode[8]];
+    return {
+      location: boxData[0],
+      pattern: [...makeColors(newGrid2), ...makeColors(newColors)].join(' '),
+    }
+  }
+
+  function decode_paste(input) {
+    // either base64 or a line of colors
+    try {
+      return base64decode_preset(input);
+    } catch (error) {
+      return { location: 'Clipboard', pattern: input.replaceAll('+',' ') };
+    }
+  }
+
+  document.addEventListener('paste', function(event) {
+      const clipboardData = event.clipboardData || window.clipboardData;
+      const input = clipboardData.getData('text');
+      //console.log('Pasted content:', input);
+      try {
+        let preset = decode_paste(input);
+        //console.log('loading preset', preset);
+        loadEntry(preset);
+        savedState = getState();
+        clearTimeout(timer);
+        timer = setTimeout(updateSolution, 250);
+        updateHash();
+      } catch (error) {
+        console.log('could not decode or apply data', error);
+      }
+  });
 }
 
 </script>
