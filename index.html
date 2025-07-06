@@ -124,23 +124,23 @@ body {
 .black::before { background: black; }
 .red::before { background: red; }
 .yellow::before { background: yellow; }
-.purple::before { background: purple; }
+.violet::before { background: purple; }
 .orange::before { background: orange; }
 .white::before { background: white; }
 .pink::before { background: pink; }
 .green::before { background: green; }
 .blue::before { background: blue; }
 
-.black, .red, .purple, .blue, .green { color: white; }
+.black, .red, .violet, .blue, .green { color: white; }
 
 *::after { background: black; }
 
-.black::after, .red::after, .purple::after, .blue::after, .green::after { background: white; }
+.black::after, .red::after, .violet::after, .blue::after, .green::after { background: white; }
 
 .black::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 228,32 H 284 L 325,102 H 368 V 410 H 326 L 284,481 H 228 L 185,410 H 143 L 143,102 H 185 Z" /></svg>') }
 .red::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 96,212 L 159,401 L 357,399 L 417,210 L 256,95 Z" /></svg>') }
 .yellow::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 96,432 H 416 L 304,80 L 240,256 L 176,176 Z" /></svg>') }
-.purple::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 335,255 L 389,442 H 122 L 176,255 L 122,68 H 389 Z" /></svg>') }
+.violet::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 335,255 L 389,442 H 122 L 176,255 L 122,68 H 389 Z" /></svg>') }
 .orange::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 256,432 L 480,192 L 384,96 L 256,192 L 128,96 L 32,192 Z" /></svg>') }
 .white::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 213,384 C 213,384 220,342 256,342 C 291,342 298,384 298,384 L 473,349 C 473,349 480,111 256,111 C 31,111 38,349 38,349 Z" /></svg>') }
 .pink::after { mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="stroke-width: 25px; fill: none; stroke: black;" d="M 267,380 L 199,447 L 63,312 L 312,63 L 448,199 L 380,266 C 380,266 436,323 379,379 C 323,435 267,380 267,380 Z" /></svg>') }
@@ -291,7 +291,7 @@ const colorFunctions = {
     }
     invertColors(b, i, original, 'grey');
   },
-  'purple': (b, i) => { if (i < 6) swap(b, i, i + 3); },
+  'violet': (b, i) => { if (i < 6) swap(b, i, i + 3); },
   'yellow': (b, i) => { if (i > 2) swap(b, i, i - 3); },
   'pink': (b, i) => rotate(b, allAroundIndexes[i]),
   'blue': (b, i) => {
@@ -403,7 +403,7 @@ const presets = [
   },
   {
     location: "Throne Room",
-    pattern: "black green blue blue blue blue purple grey grey blue blue blue blue",
+    pattern: "black green blue blue blue blue violet grey grey blue blue blue blue",
     solution: "79898647"
   },
   {
@@ -418,7 +418,7 @@ const presets = [
   },
   {
     location: "Clara Tomb",
-    pattern: "grey purple grey grey pink grey purple purple purple purple purple purple purple",
+    pattern: "grey violet grey grey pink grey violet violet violet violet violet violet violet",
     solution: "5955596595"
   },
   {
@@ -451,12 +451,12 @@ const presets = [
   },
   {
     location: "Sanctum Door 4",
-    pattern: "yellow purple yellow green red black purple purple purple purple purple purple purple",
+    pattern: "yellow violet yellow green red black violet violet violet violet violet violet violet",
     solution: "68848829971879756556"
   },
   {
     location: "Sanctum Door 5",
-    pattern: "orange black orange orange orange orange purple green purple orange orange orange orange",
+    pattern: "orange black orange orange orange orange violet green violet orange orange orange orange",
     solution: "829971879779397"
   },
   {
@@ -471,7 +471,7 @@ const presets = [
   },
   {
     location: "Sanctum Door 8",
-    pattern: "green grey green grey orange orange grey black purple green green green green",
+    pattern: "green grey green grey orange orange grey black violet green green green green",
     solution: "76239979895787131266747"
   },
   {
@@ -481,12 +481,12 @@ const presets = [
   },
   {
     location: "The Unknown 2",
-    pattern: "orange grey purple orange grey purple black black black black black black black",
+    pattern: "orange grey violet orange grey violet black black black black black black black",
     solution: "32264699888"
   },
   {
     location: "The Unknown 3",
-    pattern: "black black black grey grey grey pink purple orange black black black black",
+    pattern: "black black black grey grey grey pink violet orange black black black black",
     solution: "144453396"
   },
   {
@@ -501,12 +501,12 @@ const presets = [
   },
   {
     location: "The Unknown 6",
-    pattern: "black purple black grey grey grey orange green orange black black black black",
+    pattern: "black violet black grey grey grey orange green orange black black black black",
     solution: "2998881878838"
   },
   {
     location: "The Unknown 7",
-    pattern: "orange orange orange black green black purple green purple black black black black",
+    pattern: "orange orange orange black green black violet green violet black black black black",
     solution: "2286878722877723"
   },
   {
@@ -521,7 +521,7 @@ const presets = [
   },
   {
     location: "Atelier Maze A2",
-    pattern: "pink pink pink orange orange orange purple purple purple purple purple purple purple",
+    pattern: "pink pink pink orange orange orange violet violet violet violet violet violet violet",
     solution: "9646662848"
   },
   {
@@ -531,7 +531,7 @@ const presets = [
   },
   {
     location: "Atelier Maze A4",
-    pattern: "blue purple blue black blue purple blue purple purple blue blue blue blue",
+    pattern: "blue violet blue black blue violet blue violet violet blue blue blue blue",
     solution: "41254"
   },
   {
@@ -546,7 +546,7 @@ const presets = [
   },
   {
     location: "Atelier Maze B2",
-    pattern: "purple purple purple black grey grey orange blue orange purple purple purple purple",
+    pattern: "violet violet violet black grey grey orange blue orange violet violet violet violet",
     solution: "846654"
   },
   {
@@ -566,7 +566,7 @@ const presets = [
   },
   {
     location: "Atelier Maze C1",
-    pattern: "black green black orange purple orange blue green blue green green green green",
+    pattern: "black green black orange violet orange blue green blue green green green green",
     solution: "517684988971"
   },
   {
@@ -581,17 +581,17 @@ const presets = [
   },
   {
     location: "Atelier Maze C4",
-    pattern: "green blue grey black blue grey purple blue blue blue blue blue blue",
+    pattern: "green blue grey black blue grey violet blue blue blue blue blue blue",
     solution: "433789922"
   },
   {
     location: "Atelier Maze C5",
-    pattern: "purple white purple white white white blue pink blue blue blue blue blue",
+    pattern: "violet white violet white white white blue pink blue blue blue blue blue",
     solution: "486272292922262626228222"
   },
   {
     location: "Atelier Maze D1",
-    pattern: "red green orange black black black purple blue purple purple purple purple purple",
+    pattern: "red green orange black black black violet blue violet violet violet violet violet",
     solution: "2888925631562796689177893316723851"
   },
   {
@@ -606,7 +606,7 @@ const presets = [
   },
   {
     location: "Atelier Maze D4",
-    pattern: "pink blue blue blue blue purple green grey pink blue blue blue blue",
+    pattern: "pink blue blue blue blue violet green grey pink blue blue blue blue",
     solution: "6163672222"
   },
   {
@@ -641,12 +641,12 @@ const presets = [
   },
   {
     location: "Atelier Maze F1",
-    pattern: "black green black grey orange grey purple purple purple purple purple purple purple",
+    pattern: "black green black grey orange grey violet violet violet violet violet violet violet",
     solution: "88722878897531"
   },
   {
     location: "Atelier Maze F2",
-    pattern: "pink white pink orange red orange purple white purple purple purple purple purple",
+    pattern: "pink white pink orange red orange violet white violet violet violet violet violet",
     solution: "5875643444974562442561"
   },
   {
@@ -671,7 +671,7 @@ const presets = [
   },
   {
     location: "Atelier Maze G2",
-    pattern: "pink orange purple orange grey grey pink blue purple purple purple purple purple",
+    pattern: "pink orange violet orange grey grey pink blue violet violet violet violet violet",
     solution: "1478991227228455595"
   },
   {
@@ -686,12 +686,12 @@ const presets = [
   },
   {
     location: "Atelier Maze G5",
-    pattern: "grey pink grey orange green orange purple grey purple purple purple purple purple",
+    pattern: "grey pink grey orange green orange violet grey violet violet violet violet violet",
     solution: "887788984884968"
   },
   {
     location: "Atelier Maze H1",// (Foyer, CAST)",
-    pattern: "green green green grey orange orange blue grey purple green green green green",
+    pattern: "green green green grey orange orange blue grey violet green green green green",
     solution: "766749449"
   },
   {
@@ -706,7 +706,7 @@ const presets = [
   },
   {
     location: "Atelier Maze H4",// (Pump Room, OF)",
-    pattern: "purple blue purple black green orange black green orange purple purple purple purple",
+    pattern: "violet blue violet black green orange black green orange violet violet violet violet",
     solution: "4589156253971"
   },
   {
@@ -716,7 +716,7 @@ const presets = [
   },
   {
     location: "Atelier Maze i1",// (Archives, THROUGH)",
-    pattern: "red grey black orange orange orange green grey purple orange red red orange",
+    pattern: "red grey black orange orange orange green grey violet orange red red orange",
     solution: "1199162399718987871"
   },
   {
@@ -726,7 +726,7 @@ const presets = [
   },
   {
     location: "Atelier Maze i3",// (Vectibule, LIGHT)",
-    pattern: "grey green grey orange black red black white purple black purple orange red",
+    pattern: "grey green grey orange black red black white violet black violet orange red",
     solution: "88212858351223868215839"
   },
   {
@@ -751,7 +751,7 @@ const presets = [
   },
   {
     location: "Benchmark 2",
-    pattern: "grey purple blue grey orange black orange yellow blue orange orange yellow orange",
+    pattern: "grey violet blue grey orange black orange yellow blue orange orange yellow orange",
     solution: "8649758643115142668478569643115266431",
   }
 ]
@@ -760,7 +760,7 @@ let symbols = {
   "black": "Orinda Aries",
   "red": "Fenn Aries",
   "yellow": "Arch Aries",
-  "purple": "Eraja",
+  "violet": "Eraja",
   "orange": "Corarica",
   "white": "Mora Jai",
   "pink": "Verra",
@@ -773,7 +773,7 @@ let descriptions = {
   "black": "Moves all of the tiles in the row one to the right.",
   "red": "Turns all white tiles black and all black tiles red.",
   "yellow": "Moves up one position.",
-  "purple": "Moves down one position.",
+  "violet": "Moves down one position.",
   "orange": "Changes colors to match the majority of its (non-diagonal) adjacent tiles.\nIf they are evenly split, the color stays the same.",
   "white": "Expands outwards if there are any adjacent gray tiles.\nIf there are none, the tile disappears.",
   "pink": "Rotates every adjacent tile one clockwise position.",
@@ -815,6 +815,7 @@ function loadHash() {
 }
 
 function loadEntry(entry) {
+  entry.pattern = entry.pattern.replaceAll('purple','violet'); // just in case
   let data = entry.pattern.split(' ');
   let start = data.slice(0,10);
   let expected = data.slice(-4);
@@ -1007,7 +1008,7 @@ window.onload = function(event) {
     var boxData = [code[2], input];
 
     // convert into preset
-    let colorTable = ['grey','white','green','black','purple','yellow','pink','orange','red','blue'];
+    let colorTable = ['grey','white','green','black','violet','yellow','pink','orange','red','blue'];
     const makeColors = data => data.map(num => colorTable[num] || colorTable[0]);
     let newGrid2 = [gridCode[0], gridCode[1], gridCode[2], gridCode[3], gridCode[4], gridCode[5], gridCode[6], gridCode[7], gridCode[8]];
     return {
@@ -1067,7 +1068,7 @@ window.onload = function(event) {
         <button class="black"></button>
         <button class="red"></button>
         <button class="yellow"></button>
-        <button class="purple"></button>
+        <button class="violet"></button>
       </div>
     </div>
 
