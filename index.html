@@ -1048,6 +1048,14 @@ window.onload = function(event) {
         console.log('could not decode or apply data', error);
       }
   });
+
+  document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    const customText = gameBoard.join(' ');
+    e.clipboardData.setData('text/plain', customText);
+    console.log("copied to clipboard:", customText);
+  });
+
 }
 
 </script>
