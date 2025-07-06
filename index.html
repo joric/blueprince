@@ -1108,12 +1108,15 @@ window.onload = function(event) {
       }
   });
 
+  /* 
+  //can't do global copy here because we need to copy solution
   document.addEventListener('copy', function(e) {
     e.preventDefault();
     const customText = gameBoard.join(' ');
     e.clipboardData.setData('text/plain', customText);
     showCopyAlert();
   });
+  */
 }
 </script>
 
