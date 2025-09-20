@@ -356,7 +356,7 @@ function remapSolverIndex(j) {
   return i;
 }
 
-function treeSolve(board, expected, maxMoves=50) {
+function treeSolve(board, expected, maxMoves=100) {
   const root = new SolutionNode(null, copyBoard(board), null);
   const seen = new Set();
   seen.add(board.join(''));
