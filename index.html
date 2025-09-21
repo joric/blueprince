@@ -756,6 +756,8 @@ function getSolverWorker() {
   return solverWorker;
 }
 
+let progressTimer = null;
+
 function handleWorkerMessage(e) {
   const msg = e.data;
   if (!msg || typeof msg !== 'object') return;
@@ -777,6 +779,7 @@ function handleWorkerMessage(e) {
     }
     case 'result': {
       if (msg.status === 'ok') {
+        if (progressTimer) clearTimeout(progressTimer);
         const mapped = remapMoves(msg.moves, useNumpad);
         div.textContent = mapped.length ? mapped.join('') : 'Solved!';
         console.log(`${msg.moves.length} moves, solved in ${msg.elapsedMs} ms`);
@@ -822,7 +825,7 @@ function updateSolution() {
     return;
   }
 
-  div.textContent = 'Solving…';
+  progressTimer = setTimeout(()=> {div.textContent = 'Solving...'}, 500);
 
   // Cancel previous job if still running
   if (activeJobId != null) {
