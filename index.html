@@ -756,8 +756,6 @@ function getSolverWorker() {
   return solverWorker;
 }
 
-let progressTimer = null;
-
 function handleWorkerMessage(e) {
   const msg = e.data;
   if (!msg || typeof msg !== 'object') return;
@@ -770,16 +768,16 @@ function handleWorkerMessage(e) {
       // Show incremental progress.
       // You can adapt the text or throttle more here if it's too chatty.
       const { explored, depth, queueSize, foundDepth, elapsedMs } = msg;
-      let line = `Solving... explored ${explored}`;
-      if (depth != null) line += `, depth ${depth}`;
-      if (foundDepth != null) line += ` (found path depth ${foundDepth})`;
-      line += `, queue ${queueSize}, ${elapsedMs}ms`;
+      let line = `Solving...`;
+      //line += ` explored ${explored}`;
+      if (depth != null) line += ` depth ${depth}`;
+      //if (foundDepth != null) line += ` (found path depth ${foundDepth})`;
+      //line += `, queue ${queueSize}, ${elapsedMs}ms`;
       div.textContent = line;
       break;
     }
     case 'result': {
       if (msg.status === 'ok') {
-        if (progressTimer) clearTimeout(progressTimer);
         const mapped = remapMoves(msg.moves, useNumpad);
         div.textContent = mapped.length ? mapped.join('') : 'Solved!';
         console.log(`${msg.moves.length} moves, solved in ${msg.elapsedMs} ms`);
@@ -825,27 +823,21 @@ function updateSolution() {
     return;
   }
 
-  progressTimer = setTimeout(()=> {div.textContent = 'Solving...'}, 500);
-
   // Cancel previous job if still running
   if (activeJobId != null) {
     getSolverWorker().postMessage({ type: 'cancel', id: activeJobId });
   }
 
-  // Optional debounce (remove if you want instant dispatch)
-  if (debounceTimer) clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    const worker = getSolverWorker();
-    const id = ++currentJobId;
-    activeJobId = id;
+  const worker = getSolverWorker();
+  const id = ++currentJobId;
+  activeJobId = id;
 
-    worker.postMessage({
-      id,
-      type: 'solve',
-      start: state.start,
-      expected: state.expected
-    });
-  }, 40);
+  worker.postMessage({
+    id,
+    type: 'solve',
+    start: state.start,
+    expected: state.expected
+  });
 }
 
 function cancelSolving() {

@@ -1,20 +1,17 @@
-//////////////////////////////////////////////////////////////////////////////
-// Blue Prince Mora Jai Box solver
-// Originally from https://www.reddit.com/r/BluePrince/comments/1kefpbv/i_made_a_puzzle_box_solver/
-// Ported to JS by Joric https://github.com/joric/blueprince
+// ============================================================
+// solver.js (cancellable + progress-capable BFS)
+// ============================================================
 
 const crossAroundIndexes = [
   [1, 3], [0, 2, 4], [1, 5],
   [0, 4, 6], [1, 3, 5, 7], [2, 4, 8],
   [3, 7], [6, 4, 8], [5, 7]
 ];
-
 const allAroundIndexes = [
   [1, 4, 3], [2, 5, 4, 3, 0], [5, 4, 1],
   [0, 1, 4, 7, 6], [0, 1, 2, 5, 8, 7, 6, 3], [8, 7, 4, 1, 2],
   [3, 4, 7], [6, 3, 4, 5, 8], [7, 4, 5]
 ];
-
 const rowsIndexes = [
   [0, 1, 2], [0, 1, 2], [0, 1, 2],
   [3, 4, 5], [3, 4, 5], [3, 4, 5],
@@ -29,9 +26,7 @@ class SolutionNode {
   }
 }
 
-function swap(board, i, j) {
-  [board[i], board[j]] = [board[j], board[i]];
-}
+function swap(board, i, j) { [board[i], board[j]] = [board[j], board[i]]; }
 
 function rotate(board, indices) {
   const last = board[indices[indices.length - 1]];
@@ -61,9 +56,9 @@ const colorFunctions = {
   },
   'black': (b, i) => rotate(b, rowsIndexes[i]),
   'red': (b, i, c='red') => {
-    for (let i = 0; i < 9; i++) {
-      if (b[i] === 'black') b[i] = c;
-      else if (b[i] === 'white') b[i] = 'black';
+    for (let k = 0; k < 9; k++) {
+      if (b[k] === 'black') b[k] = c;
+      else if (b[k] === 'white') b[k] = 'black';
     }
   },
   'white': (b, i) => {
@@ -102,41 +97,67 @@ function clickBoard(board, idx) {
   }
 }
 
-function copyBoard(board) {
-  return [...board];
-}
+function copyBoard(board) { return [...board]; }
 
 function remapSolverIndex(j) {
-  //let i = useNumpad ? [6,7,8,3,4,5,0,1,2][j] : j; // scan as numpad? solver still doesn't match https://kkawabat.github.io/MoraJaiBox/
-  let i = j;
-  //console.log(j+1,'=>', i+1);
-  return i;
+  // Placeholder for any index remapping logic (numpad etc.)
+  return j;
 }
 
-function treeSolve(board, expected, maxMoves=100  ) {
+// ---------- CANCELLABLE + PROGRESS BFS ----------
+function treeSolve(board, expected, opts = {}) {
+  const {
+    maxMoves = 100,
+    onProgress = () => {},
+    shouldCancel = () => false,
+    progressInterval = 5000  // call onProgress every N expansions
+  } = opts;
+
   const root = new SolutionNode(null, copyBoard(board), null);
   const seen = new Set();
   seen.add(board.join(''));
   const levels = [[root]];
 
+  let explored = 0;
+
   for (let depth = 0; depth < maxMoves; depth++) {
+    if (shouldCancel()) return null;
+
     const currentLevel = levels[depth];
+    if (!currentLevel || currentLevel.length === 0) break;
+
     const nextLevel = [];
+
     for (const node of currentLevel) {
+      if (shouldCancel()) return null;
+
+      // (Optional) progress by depth boundary
+      // (We also do expansion-based progress below.)
       for (let j = 0; j < 9; j++) {
+        if (shouldCancel()) return null;
+
         let i = remapSolverIndex(j);
         const newBoard = copyBoard(node.board);
         clickBoard(newBoard, i);
+
         const hash = newBoard.join('');
         if (isStillPossible(newBoard, expected) && !seen.has(hash)) {
           seen.add(hash);
           const child = new SolutionNode(node, newBoard, i);
-          if (isSolution(newBoard, expected)) return child;
+          explored++;
+          if (explored % progressInterval === 0) {
+            onProgress({ explored, depth, queueSize: nextLevel.length });
+          }
+          if (isSolution(newBoard, expected)) {
+            onProgress({ explored, depth: depth + 1, queueSize: nextLevel.length, found: true });
+            return child;
+          }
           nextLevel.push(child);
         }
       }
     }
     levels.push(nextLevel);
+    onProgress({ explored, depth: depth + 1, queueSize: nextLevel.length });
   }
 
   return null;
@@ -145,33 +166,26 @@ function treeSolve(board, expected, maxMoves=100  ) {
 function getMoves(node) {
   const moves = [];
   while (node) {
-    if (node.move !== null) {
-      moves.unshift(node.move);
-    }
+    if (node.move !== null) moves.unshift(node.move);
     node = node.parent;
   }
   return moves;
 }
 
-// ---------- PUBLIC EXPORT: solve(start, expected, onProgress?, shouldCancel?) ----------
-
+// Public solve with optional progress + cancellation
 function solve(start, expected, onProgress, shouldCancel) {
-  const node = treeSolve(start, expected);
-  
-  /*, {
+  const node = treeSolve(start, expected, {
     onProgress: onProgress || (() => {}),
     shouldCancel: shouldCancel || (() => false),
-    progressInterval: 2000 // tweak for frequency
+    progressInterval: 3000, // tweak for expansion frequency
+    maxMoves: 100           // tweak as needed
   });
-  */
-
   return node ? getMoves(node) : null;
 }
 
 // ============================================================
-// Worker Harness (runs only in worker context)
+// Worker Harness
 // ============================================================
-
 if (typeof self !== 'undefined' && typeof document === 'undefined') {
   const cancelled = new Set();
 
@@ -187,7 +201,6 @@ if (typeof self !== 'undefined' && typeof document === 'undefined') {
     if (msg.type === 'solve') {
       const { id, start, expected } = msg;
       cancelled.delete(id);
-
       const startTime = performance.now();
 
       const moves = solve(
@@ -196,44 +209,28 @@ if (typeof self !== 'undefined' && typeof document === 'undefined') {
         // onProgress
         (p) => {
           if (cancelled.has(id)) return;
-          // Throttle more if needed by condition here
-          self.postMessage({
-            id,
-            type: 'progress',
-            ...p,
-            elapsedMs: +(performance.now() - startTime).toFixed(1)
-          });
+            self.postMessage({
+              id,
+              type: 'progress',
+              ...p,
+              elapsedMs: +(performance.now() - startTime).toFixed(1)
+            });
         },
         // shouldCancel
         () => cancelled.has(id)
       );
 
       if (cancelled.has(id)) {
-        self.postMessage({
-          id,
-          type: 'result',
-          status: 'cancelled'
-        });
+        self.postMessage({ id, type: 'result', status: 'cancelled' });
         cancelled.delete(id);
         return;
       }
 
       const elapsedMs = +(performance.now() - startTime).toFixed(1);
       if (moves) {
-        self.postMessage({
-          id,
-          type: 'result',
-          status: 'ok',
-          moves,
-          elapsedMs
-        });
+        self.postMessage({ id, type: 'result', status: 'ok', moves, elapsedMs });
       } else {
-        self.postMessage({
-          id,
-          type: 'result',
-          status: 'fail',
-          elapsedMs
-        });
+        self.postMessage({ id, type: 'result', status: 'fail', elapsedMs });
       }
     }
   };
