@@ -692,8 +692,7 @@ function loadHash() {
   let expected = data.slice(-4);
   setEditMode(false);
   updateColors(start, expected);
-  clearTimeout(timer);
-  timer = setTimeout(updateSolution, 250);
+  updateSolution();
 }
 
 function loadEntry(entry) {
@@ -851,7 +850,6 @@ function cancelSolving() {
 
 
 /////////////////////////////////////////////////
-
 /*
 
 function updateSolution() {
@@ -956,10 +954,8 @@ function tileClick(div, i) {
     updateColors(state.start, state.expected);
   }
 
-  clearTimeout(timer);
-  timer = setTimeout(updateSolution, 250);
-
   updateHash();
+  updateSolution();
 }
 
 function updateColors(start, expected) {
@@ -1077,9 +1073,8 @@ window.onload = function(event) {
         document.querySelector('.presets').selectedIndex = 0;
         loadEntry(preset);
         savedState = getState();
-        clearTimeout(timer);
-        timer = setTimeout(updateSolution, 250);
         updateHash();
+        updateSolution();
       }
   });
 
