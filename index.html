@@ -769,7 +769,7 @@ function handleWorkerMessage(e) {
       const { explored, depth, queueSize, foundDepth, elapsedMs } = msg;
       let line = `Solving...`;
       //line += ` explored ${explored}`;
-      if (depth != null) line += ` depth ${depth}`;
+      if (depth != null) line += ` ${depth} moves`;
       //if (foundDepth != null) line += ` (found path depth ${foundDepth})`;
       //line += `, queue ${queueSize}, ${elapsedMs}ms`;
       div.textContent = line;
