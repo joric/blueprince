@@ -801,6 +801,8 @@ function updateSolution() {
   const state = getState();
   const fail = 'Solution not found';
 
+  cancelSolving();
+
   // Original quick guards
   if (state.start.every(x => x === 'grey')) {
     div.textContent = editMode ? 'Paint Tiles' : fail;
@@ -843,8 +845,8 @@ function cancelSolving() {
   if (activeJobId != null) {
     getSolverWorker().postMessage({ type: 'cancel', id: activeJobId });
     activeJobId = null;
-    const div = document.querySelector('#result');
-    if (div) div.textContent = 'Cancelled';
+    //const div = document.querySelector('#result');
+    //if (div) div.textContent = 'Cancelled';
   }
 }
 
