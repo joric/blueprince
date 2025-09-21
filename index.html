@@ -303,9 +303,9 @@ const colorFunctions = {
     }
   },
   'black': (b, i) => rotate(b, rowsIndexes[i]),
-  'red': (b) => {
+  'red': (b, i, c='red') => {
     for (let i = 0; i < 9; i++) {
-      if (b[i] === 'black') b[i] = 'red';
+      if (b[i] === 'black') b[i] = c;
       else if (b[i] === 'white') b[i] = 'black';
     }
   },
@@ -320,7 +320,7 @@ const colorFunctions = {
   'yellow': (b, i) => { if (i > 2) swap(b, i, i - 3); },
   'pink': (b, i) => rotate(b, allAroundIndexes[i]),
   'blue': (b, i) => {
-    if (b[4] !== 'blue') colorFunctions[b[4]](b, i);
+    if (b[4] !== 'blue') colorFunctions[b[4]](b, i, 'blue');
   }
 };
 
